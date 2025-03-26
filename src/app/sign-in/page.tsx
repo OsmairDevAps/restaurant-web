@@ -3,9 +3,31 @@ import Image from "next/image";
 import bglogin from '@/assets/bglogin.png'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAppContext } from "@/context/AppContext";
+import { useForm } from "react-hook-form";
+import { api } from "@/lib/api";
+import { useState } from "react";
+
+type TInputs = {
+  usuario: string;
+  senha: string;
+}
 
 export default function SignIn() {
-  function handleLogin() {
+  const { isLogged, setIsLogged, setUser } = useAppContext()
+  const [message, setMessage] = useState('')
+  const { handleSubmit, register, formState:{errors} } = useForm<TInputs>()
+  
+  async function handleLogin(data: TInputs) {
+    const { usuario, senha } = data
+    const response = await api.post('usuarios/login', {user: usuario, password: senha})
+    if(response.data.user !== null) {
+      setUser(response.data.user)
+      setIsLogged(true)
+      setMessage('')
+    } else {
+      setMessage(response.data.message)
+    }
   }
 
   return (
@@ -16,7 +38,8 @@ export default function SignIn() {
       </aside>
 
       <div className="flex flex-col w-1/2 justify-center p-32">
-        <form className="flex flex-col gap-6 w-full justify-center p-2">
+
+        <form onSubmit={handleSubmit(handleLogin)} className="flex flex-col gap-6 w-full justify-center p-2">
           <div className="flex flex-col justify-center items-center">
             <h2 className="font-bold text-4xl">TIO DO CREPE</h2>
             <h2 className="font-thin text-3xl italic tracking-[2px] border-t-[1px] border-t-slate-500">Cozinha Francesa</h2>
@@ -28,7 +51,7 @@ export default function SignIn() {
             <Input 
               type="text"
               id="usuario"
-              name="usuario"
+              {...register('usuario')}
             />
           </div>
 
@@ -37,18 +60,20 @@ export default function SignIn() {
             <Input 
               type="password"
               id="senha"
-              name="senha"
+              {...register('senha')}
             />
             <div className="flex flex-row justify-between items-center h-5 mb-4">
               <span className="text-slate-600">Não tenho cadastro</span>
               <span className="text-slate-600">Esqueci a senha</span>
             </div>
           </div>
-
-          <Button onClick={handleLogin}>
+          
+          {message && <span className="text-red-700">{message}</span>}
+          <Button>
             Acessar
           </Button>
         </form>
+
       </div>
 
     </div>
