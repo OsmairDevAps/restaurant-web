@@ -1,5 +1,6 @@
 'use client'
 import Header from "@/components/header"
+import Menu from "@/components/menu";
 import Mesa from "@/components/mesa"
 
 interface IMesa {
@@ -31,41 +32,45 @@ export default function Atender() {
   return (
     <div className="h-screen w-screen flex flex-col">
       <Header />
-      <div className="p-4">
-        <div className="flex flex-row justify-between mb-4">
-          <h2 className="mb-2 font-bold text-xl">Informe a mesa:</h2>
-          <div className="flex flex-row justify-start items-center gap-6">
-            <div className="flex flex-row justify-start items-center gap-2">
-              <div className="w-6 h-6 bg-blue-200"></div>
-              <span>Disponível</span>
-            </div>
-            <div className="flex flex-row justify-start items-center gap-2">
-              <div className="w-6 h-6 bg-orange-200"></div>
-              <span>Ocupada</span>
-            </div>
-            <div className="flex flex-row justify-start items-center gap-2">
-              <div className="w-6 h-6 bg-yellow-200"></div>
-              <span>Reservada</span>
-            </div>
-            <div className="flex flex-row justify-start items-center gap-2">
-              <div className="w-6 h-6 bg-violet-200"></div>
-              <span>Cortesia</span>
+      <div className="flex flex-1 overflow-hidden">
+        <Menu />
+
+        <div className="p-4">
+          <div className="flex flex-row justify-between mb-4">
+            <h2 className="mb-2 font-bold text-xl">Informe a mesa:</h2>
+            <div className="flex flex-row justify-start items-center gap-6">
+              <div className="flex flex-row justify-start items-center gap-2">
+                <div className="w-6 h-6 bg-blue-200"></div>
+                <span>Disponível</span>
+              </div>
+              <div className="flex flex-row justify-start items-center gap-2">
+                <div className="w-6 h-6 bg-orange-200"></div>
+                <span>Ocupada</span>
+              </div>
+              <div className="flex flex-row justify-start items-center gap-2">
+                <div className="w-6 h-6 bg-yellow-200"></div>
+                <span>Reservada</span>
+              </div>
+              <div className="flex flex-row justify-start items-center gap-2">
+                <div className="w-6 h-6 bg-violet-200"></div>
+                <span>Cortesia</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-row justify-start w-full h-full gap-8 flex-wrap">
-          {
-            mesas.map(mesa => (
-              <Mesa 
-                key={mesa.num}
-                isOpen={mesa.isOpen} 
-                num={mesa.num} 
-                price={mesa.price} 
-                status={mesa.status}
-              />
-            ))
-          }
+          <div className="flex flex-row flex-wrap justify-start items-start w-full gap-8">
+            {
+              mesas.map(mesa => (
+                <Mesa 
+                  key={mesa.num}
+                  isOpen={mesa.isOpen} 
+                  num={mesa.num} 
+                  price={mesa.price} 
+                  status={mesa.status}
+                />
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>

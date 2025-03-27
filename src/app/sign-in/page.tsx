@@ -3,7 +3,7 @@ import Image from "next/image";
 import bglogin from '@/assets/bglogin.png'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppContext } from "@/context/AppContext";
+import { useAuthContext } from "@/context/AuthContext";
 import { useForm } from "react-hook-form";
 import { api } from "@/lib/api";
 import { useState } from "react";
@@ -14,7 +14,7 @@ type TInputs = {
 }
 
 export default function SignIn() {
-  const { isLogged, setIsLogged, setUser } = useAppContext()
+  const { isLogged, setIsLogged, setUser } = useAuthContext()
   const [message, setMessage] = useState('')
   const { handleSubmit, register, formState:{errors} } = useForm<TInputs>()
   

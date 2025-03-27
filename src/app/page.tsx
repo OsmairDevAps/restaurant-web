@@ -2,10 +2,10 @@
 import { useState } from "react";
 import Caixa from "./caixa/page"
 import SignIn from "./sign-in/page"
-import { useAppContext } from "@/context/AppContext";
+import { useAuthContext  } from "@/context/AuthContext";
 
 export default function Root() {
-  const { isLogged } = useAppContext()
+  const { isLogged } = useAuthContext ()
 
   if (isLogged) return <Caixa />
   return <SignIn />

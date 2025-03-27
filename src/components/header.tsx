@@ -1,12 +1,13 @@
 'use client'
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "@/context/AppContext";
-import { FaConciergeBell, FaCashRegister, FaSignOutAlt } from 'react-icons/fa'
+import { useAuthContext } from "@/context/AuthContext";
+import { FaSignOutAlt } from 'react-icons/fa'
+import logotipo from '@/assets/logotipo.png'
+import Image from "next/image";
 
 export default function Header() {
-  const { isLogged, setIsLogged, user } = useAppContext()
+  const { isLogged, setIsLogged, user } = useAuthContext()
   const router = useRouter()
 
   function handleSignOut() {
@@ -15,30 +16,17 @@ export default function Header() {
   }
 
   return (
-    <header className="h-16 flex items-center justify-between bg-slate-100 p-4 mb-2 border-b-[1px] border-b-slate-300">
-      <div className="h-10 w-16 bg-slate-300"></div>
-      
-      <div className="flex gap-2">
-        <div>
-          <Link href="/caixa" className="flex flex-row gap-2 w-40">
-            <FaCashRegister size={20} /> CAIXA
-          </Link>
-        </div>
-        <div>
-          <Link href="/atender" className="flex flex-row gap-2 w-40">
-            <FaConciergeBell size={20} /> ATENDER
-          </Link>
-        </div>
-      </div>
+    <header className="bg-slate-950 h-16 flex items-center justify-between p-4 border-b-[1px] border-b-slate-300">
+      <Image alt="Tio do Crepe" src={logotipo} className="w-20 h-20" />
       
       <div className="flex flex-row gap-4">
         <div className="h-10 w-10 rounded-full bg-slate-300"></div>
         <div className="flex flex-col">
-          <span className="text-[12px]">{user.user}</span>
-          <span className="text-[12px]">{user.kind}</span>
+          <span className="text-[12px] text-white">{user.user}</span>
+          <span className="text-[12px] text-white">{user.kind}</span>
         </div>
-        <button onClick={handleSignOut}>
-          <FaSignOutAlt size={18} color="#990000" />
+        <button onClick={handleSignOut} className="p-2">
+          <FaSignOutAlt size={18} color="#ffffff" />
         </button>
       </div>
     </header>
