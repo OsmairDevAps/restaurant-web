@@ -16,6 +16,14 @@ export default function Menu() {
   const { isCashOpen, setIsCashOpen } = useCashRegisterContext()
   const router = useRouter()
 
+  function openCash() {
+    router.push('caixa')
+  }
+
+  function closeCash() {
+    router.push('caixa')
+  }
+
   return (
     <div className="flex flex-col w-32 items-center h-full pt-6 pl-2 pr-2 gap-6 bg-slate-100 border-r-[1px] border-r-slate-300">
     <div>
@@ -27,29 +35,22 @@ export default function Menu() {
 
     <div>
       {isCashOpen ? 
-      <div className='flex flex-col items-center justify-center w-40 text-slate-600'>
-        <Image src={abrircx} alt="Abrir Caixa" className="w-10 h-10 bg-slate-500" />
-        <span className="text-md">Abrir Caixa</span>
-      </div>
+        <button onClick={closeCash} className="flex flex-col items-center justify-center w-40 text-slate-600">
+          <Image src={fecharcx} alt="Fechar Caixa" className="w-10 h-10" />
+          <span className="text-md">Fechar Caixa</span>
+        </button>
       :
-      <Link href="/" className='flex flex-col items-center justify-center w-40 text-slate-600'>
-        <Image src={abrircx} alt="Abrir Caixa" className="w-10 h-10" />
-        <span className="text-md">Abrir Caixa</span>
-      </Link>
+        <button onClick={openCash} className='flex flex-col items-center justify-center w-40 text-slate-600'>
+          <Image src={abrircx} alt="Abrir Caixa" className="w-10 h-10" />
+          <span className="text-md">Abrir Caixa</span>
+        </button>
       }
     </div>
 
     <div>
-      <Link href="/" className="flex flex-col items-center justify-center w-40 text-slate-600">
+      <Link href='/reforco' className="flex flex-col items-center justify-center w-40 text-slate-600">
         <Image src={reforcarcx} alt="Reforçar Caixa" className="w-10 h-10" />
         <span className="text-md">Reforçar Caixa</span>
-      </Link>
-    </div>
-
-    <div>
-      <Link href="/" className="flex flex-col items-center justify-center w-40 text-slate-600">
-        <Image src={fecharcx} alt="Fechar Caixa" className="w-10 h-10" />
-        <span className="text-md">Fechar Caixa</span>
       </Link>
     </div>
 
