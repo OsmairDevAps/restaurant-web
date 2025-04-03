@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 export default function Reforco() {
 
   async function ReforcaCaixa() {
-    
+    alert('Ok, reforçado kkk')
   }
 
   return(

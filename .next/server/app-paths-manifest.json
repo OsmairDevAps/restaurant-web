@@ -1,6 +1,7 @@
 {
-  "/atender/page": "app/atender/page.js",
   "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
   "/caixa/page": "app/caixa/page.js",
-  "/reforco/page": "app/reforco/page.js"
+  "/reforco/page": "app/reforco/page.js",
+  "/atender/page": "app/atender/page.js"
 }
