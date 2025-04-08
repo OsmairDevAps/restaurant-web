@@ -11,25 +11,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/reforco/page": [
+    "/configuracao/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/reforco/page.js"
+      "static/chunks/app/configuracao/page.js"
     ],
-    "/caixa/page": [
+    "/api/category/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/caixa/page.js"
-    ],
-    "/atender/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/atender/page.js"
-    ],
-    "/atender/[mesa]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/atender/[mesa]/page.js"
+      "static/chunks/app/api/category/route.js"
     ]
   }
 }

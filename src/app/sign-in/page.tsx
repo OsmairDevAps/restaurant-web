@@ -1,11 +1,12 @@
 'use client'
+
 import Image from "next/image";
 import bglogin from '@/assets/bglogin.png'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuthContext } from "@/context/AuthContext";
+import { useUser } from "@/hooks/useUser";
 import { useForm } from "react-hook-form";
-import { api } from "@/lib/api";
 import { useState } from "react";
 
 type TInputs = {
@@ -14,19 +15,21 @@ type TInputs = {
 }
 
 export default function SignIn() {
+  const userDatabase = useUser()
   const { isLogged, setIsLogged, setUser } = useAuthContext()
   const [message, setMessage] = useState('')
   const { handleSubmit, register, formState:{errors} } = useForm<TInputs>()
   
   async function handleLogin(data: TInputs) {
     const { usuario, senha } = data
-    const response = await api.post('usuarios/login', {user: usuario, password: senha})
-    if(response.data.user !== null) {
-      setUser(response.data.user)
+    const response = await userDatabase.login(usuario, senha)
+    if(response.user !== null) {
+      setUser(response.user)
       setIsLogged(true)
       setMessage('')
+      setIsLogged(true)
     } else {
-      setMessage(response.data.message)
+      setMessage(response.message)
     }
   }
 

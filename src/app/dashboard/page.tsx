@@ -3,7 +3,7 @@
 import Header from "@/components/header";
 import Menu from "@/components/menu";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent  } from "@/components/ui/chart"
-import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, XAxis } from "recharts"
 
 const chartConfig = {
   desktop: {
@@ -25,38 +25,6 @@ export default function Dashboard() {
     { month: "May", desktop: 2090, mobile: 1300 },
     { month: "June", desktop: 2140, mobile: 1400 },
   ]
-  const dataSales = [
-    {
-      "name": "Janeiro",
-      "uv": 4000,
-      "pv": 2400,
-      "amt": 2400
-    },
-    {
-      "name": "Fevereiro",
-      "uv": 3000,
-      "pv": 1398,
-      "amt": 2210
-    },
-    {
-      "name": "Março",
-      "uv": 2000,
-      "pv": 9800,
-      "amt": 2290
-    },
-    {
-      "name": "Abril",
-      "uv": 2780,
-      "pv": 3908,
-      "amt": 2000
-    },
-    {
-      "name": "Maio",
-      "uv": 1890,
-      "pv": 4800,
-      "amt": 2181
-    }
-  ]
 
   return (
     <div className="h-screen w-screen flex flex-col">
@@ -64,7 +32,7 @@ export default function Dashboard() {
 
       <div className="flex flex-1 overflow-hidden">
         <Menu />
-        <div className="flex flex-row justify-between items-center flex-wrap w-full px-40">
+        <div className="flex flex-col justify-start items-center flex-wrap w-full px-40">
           <div>
             <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
               <BarChart accessibilityLayer data={chartData}>
@@ -83,15 +51,7 @@ export default function Dashboard() {
             <h2>BALANÇO 6 ÚLTIMOS MESES</h2>
           </div>
 
-          <div>
-          <LineChart width={500} height={300} data={dataSales}>
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-          </LineChart>
-          </div>
+          
         </div>
       </div>
     </div>
