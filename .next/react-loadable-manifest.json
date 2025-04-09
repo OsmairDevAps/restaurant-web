@@ -11,6 +11,12 @@
       "static/chunks/_app-pages-browser_src_lib_database_category_server_ts.js"
     ]
   },
+  "hooks\\useProduct.ts -> ../lib/database/product.server": {
+    "id": "hooks\\useProduct.ts -> ../lib/database/product.server",
+    "files": [
+      "static/chunks/_app-pages-browser_src_lib_database_product_server_ts.js"
+    ]
+  },
   "hooks\\useUser.ts -> @/lib/database/user.server": {
     "id": "hooks\\useUser.ts -> @/lib/database/user.server",
     "files": [

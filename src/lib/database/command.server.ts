@@ -7,9 +7,6 @@ export async function createCommand(data: Omit<ICommand, 'id'>) {
   try {
     const insertedRow = await supabaseServer.from('mesas').insert({
       num: data.num,
-      client: data.client,
-      clientdoc: data.clientdoc,
-      price: data.price,
       status: data.status
     })
     return { insertedRow } 
@@ -24,9 +21,6 @@ export async function updateCommand(data: ICommand) {
     .from('mesas')
     .update({
       num: data.num,
-      client: data.client,
-      clientdoc: data.clientdoc,
-      price: data.price,
       status: data.status
     })
     .eq('id', data.id)

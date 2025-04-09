@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import RegCategory from "./category/page";
+import RegProduct from "./product/page";
 
 export default function Configuracao() {
   const [categoryClicked, setCategoryClicked] = useState('')
@@ -49,7 +50,7 @@ export default function Configuracao() {
         <Menu />
 
         <div className="w-full p-4">
-          <h2>Configurações</h2>
+          <h2 className="font-bold">CONFIGURAÇÕES:</h2>
           <div className="flex flex-row gap-2">
             
             <div className="flex flex-col justify-items-start items-start w-96 gap-2 my-2">
@@ -64,26 +65,13 @@ export default function Configuracao() {
               </button>
             </div>
 
-            <div className="w-96 p-2 rounded border-[1px] border-slate-200">
+            <div className="w-1/2 h-full p-2 rounded border-[1px] border-slate-200">
               {isCategoryForm &&
                 <RegCategory />
               }
 
               {isProductForm &&
-                <form>
-                  <h2>Cadastro de produtos</h2>
-                  <div className="flex flex-col gap-2 my-2">
-                    <label>Nome da categoria:</label>
-                    <Input 
-                      type="text"
-                      id="descricao"
-                      // {...register('descricao')}
-                    />
-                  </div>
-                  <Button>
-                    Salvar
-                  </Button>
-                </form>
+                <RegProduct />
               }
 
               {isCommandForm &&

@@ -1,5 +1,4 @@
 'use client'
-import { useState } from "react";
 import Caixa from "./caixa/page"
 import SignIn from "./sign-in/page"
 import { useAuthContext  } from "@/context/AuthContext";

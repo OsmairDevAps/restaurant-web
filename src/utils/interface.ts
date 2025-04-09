@@ -43,23 +43,24 @@ export interface IProduct {
   id: number;
   categoryid: number;
   name: string;
+  costprice: number;
   price: number;
 }
 
 export interface ICommand {
   id: number;
   num: number;
-  client: string;
-  clientdoc: string;
-  price: number;
   status: string;
 }
 
 export interface ICommandItem {
   id: number;
   idtable: number;
+  client: string;
+  clientdoc: string;
   category: string;
   product: string;
   amount: number;
   price: number;
+  obs: string;
 }

@@ -12,7 +12,10 @@ export async function createItemCommand(data: Omit<ICommandItem, 'id'>) {
       category: data.category,
       product: data.product,
       amount: data.amount,
-      price: data.price
+      price: data.price,
+      client: data.client,
+      clientdoc: data.clientdoc,
+      obs: data.obs
     })
     return { insertedRow } 
   } catch(error) {
@@ -29,7 +32,10 @@ export async function updateItemCommand(data: ICommandItem) {
       category: data.category,
       product: data.product,
       amount: data.amount,
-      price: data.price
+      price: data.price,
+      client: data.client,
+      clientdoc: data.clientdoc,
+      obs: data.obs
     })
     .eq('id', data.id)
     return
