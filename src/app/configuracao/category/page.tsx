@@ -29,18 +29,18 @@ export default function RegCategory() {
     setCategories(response)
   }
 
+  async function handleUpdate(cat: ICategory) {
+    setIsEditting(true)
+    setCategory(cat)
+    reset(cat)
+  }
+  
   async function handleDelete(id: number) {
     if (confirm("Tem certeza que deseja excluir?") == true) {
       await categoryDatabase.remove(id)
       alert("Categoria excluida!")
       listCategories()
     } 
-  }
-
-  async function handleUpdate(cat: ICategory) {
-    setIsEditting(true)
-    setCategory(cat)
-    reset(cat)
   }
 
   async function onSubmit(data: categoryType) {
@@ -67,7 +67,6 @@ export default function RegCategory() {
 
   useEffect(() => {
     listCategories()
-    console.log(categories)
   }, [])
 
   return (

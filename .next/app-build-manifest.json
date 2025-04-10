@@ -16,21 +16,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/page.js"
     ],
-    "/caixa/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/caixa/page.js"
-    ],
-    "/atender/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/atender/page.js"
-    ],
-    "/relatorio/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/relatorio/page.js"
-    ],
     "/configuracao/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -45,6 +30,26 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/products/route.js"
+    ],
+    "/reforco/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/reforco/page.js"
+    ],
+    "/atender/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/atender/page.js"
+    ],
+    "/caixa/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/caixa/page.js"
+    ],
+    "/api/command/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/command/route.js"
     ],
     "/atender/[mesa]/page": [
       "static/chunks/webpack.js",

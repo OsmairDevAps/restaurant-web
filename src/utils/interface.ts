@@ -51,6 +51,7 @@ export interface ICommand {
   id: number;
   num: number;
   status: string;
+  color: string;
 }
 
 export interface ICommandItem {

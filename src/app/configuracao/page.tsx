@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import RegCategory from "./category/page";
 import RegProduct from "./product/page";
+import RegCommand from "./command/page";
 
 export default function Configuracao() {
   const [categoryClicked, setCategoryClicked] = useState('')
@@ -75,20 +76,7 @@ export default function Configuracao() {
               }
 
               {isCommandForm &&
-                <form>
-                  <h2>Cadastro de mesas</h2>
-                  <div className="flex flex-col gap-2 my-2">
-                    <label>Nome da categoria:</label>
-                    <Input 
-                      type="text"
-                      id="descricao"
-                      // {...register('descricao')}
-                    />
-                  </div>
-                  <Button>
-                    Salvar
-                  </Button>
-                </form>
+                <RegCommand />
               }
             </div>
 
