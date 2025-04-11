@@ -41,3 +41,19 @@ export async function removeCommand(id: number) {
     throw error
   }
 }
+
+export async function findOnce(id: number) {
+  try {
+    const { data, error } = await supabaseServer
+    .from('mesas')
+    .select('*')
+    .eq('id', id)
+    if (data) {
+      return data[0]
+    } else {
+      return error
+    }
+  } catch(error) {
+    throw error
+  }
+}

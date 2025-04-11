@@ -1,18 +1,84 @@
 'use client'
 
+import { useEffect, useState } from "react"
+import { useParams, useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { useCategory } from "@/hooks/useCategory"
+import { useItemCommand } from "@/hooks/useItemCommand"
+import { ICategory, ICommand, ICommandItem, IProduct } from "@/utils/interface"
 import Header from "@/components/header"
 import Menu from "@/components/menu"
-import { Button } from "@/components/ui/button"
-import { useParams, useRouter } from "next/navigation"
+import { useProduct } from "@/hooks/useProduct"
+import { useCommand } from "@/hooks/useCommand"
 
 export default function DetalheMesa() {
+  const [categoryName, setCategoryName] = useState('')
+  const [categories, setCategories] = useState<ICategory[]>([])
+  const [products, setProducts] = useState<IProduct[]>([])
+  const [command, setCommand] = useState<ICommand>()
+  const [itemsCommand, setItemsCommand] = useState<ICommandItem[]>([])
+  const categoryDatabase = useCategory()
+  const productDatabase = useProduct()
+  const mesaDatabase = useCommand()
+  const itemCommandDatabase = useItemCommand()
   const params = useParams()
   const router = useRouter()
   const { mesa } = params
 
+  async function LoadCategories() {
+    const response = await categoryDatabase.list()
+    if (response) {
+      setCategories(response)
+    }
+  }
+
+  async function LoadProducts(idCategory: number) {
+    const cat = await categoryDatabase.findOnce(idCategory)
+    if (cat) {
+      setCategoryName(cat)
+    }
+    const response = await productDatabase.findByCategory(idCategory)
+    if(response) {
+      setProducts(response)
+    }
+  }
+
+  async function SaveItemCommand(product: IProduct) {
+    await itemCommandDatabase.create({
+      idtable: 0,
+      client: '',
+      clientdoc: '',
+      category: categoryName,
+      product: product.name,
+      amount: 1,
+      price: product.price,
+      obs: ''
+    })
+    loadItemsCommand()
+  }
+
+  async function loadItemsCommand() {
+    const response = await itemCommandDatabase.list()
+    if (response) {
+      setItemsCommand(response)
+    }
+  }
+
   function handleBack() {
     router.push('/atender')
   }
+
+  async function loadMesa(id: number) {
+    const response = await mesaDatabase.findOnce(id)
+    if (response) {
+      setCommand(response)
+    }
+  }
+  
+  useEffect(() => {
+    loadMesa(Number(mesa))
+    LoadCategories()
+  },[])
 
   return (
     <div className="h-screen w-screen flex flex-col">
@@ -21,24 +87,35 @@ export default function DetalheMesa() {
         <Menu />
         
         <div className="w-full h-full">
-          <h2 className="px-4 font-bold text-xl">MESA {mesa}</h2>
+          <h2 className="px-4 font-bold text-xl">MESA {command?.num}</h2>
           
           <div className="w-full flex flex-row gap-4 h-full justify-start items-start p-4">
             <div className="flex flex-col justify-between items-start w-1/2 h-full">
               <div className="flex flex-row justify-between w-full h-full mb-2 bg-slate-100">
                 <div className="flex flex-col w-1/3 p-4 gap-2">
-                  <button className="bg-purple-300 w-48 h-10">Categoria 01</button>
-                  <button className="bg-purple-300 w-48 h-10">Categoria 02</button>
-                  <button className="bg-purple-300 w-48 h-10">Categoria 03</button>
-                  <button className="bg-purple-300 w-48 h-10">Categoria 04</button>
+                  <h2 className="font-semibold">CATEGORIA:</h2>
+                  {categories.map(item =>  
+                    <button key={item.id} 
+                      onClick={() => LoadProducts(item.id) }
+                      className="bg-purple-300 w-48 h-10"
+                    >
+                      {item.description}
+                    </button>)
+                  }
                 </div>
                 {/* Produtos da categoria selecionada */}
                 <div className="flex-wrap w-2/3 p-4 gap-2">
-                  <button className="bg-indigo-300 w-60 h-10 m-1">Product 01</button>
-                  <button className="bg-indigo-300 w-60 h-10 m-1">Product 02</button>
-                  <button className="bg-indigo-300 w-60 h-10 m-1">Product 03</button>
-                  <button className="bg-indigo-300 w-60 h-10 m-1">Product 04</button>
-                  <button className="bg-indigo-300 w-60 h-10 m-1">Product 05</button>
+                  <h2 className="font-semibold">PRODUTOS:</h2>
+                  {
+                    products.map(item => 
+                    <button 
+                      key={item.id} 
+                      onClick={() => SaveItemCommand(item) }
+                      className="bg-indigo-300 w-60 h-10 m-1"
+                    >
+                      {item.name}
+                    </button>)
+                  }
                 </div>
               </div>
               <div className="flex flex-row justify-between items-center w-full mb-4">
@@ -50,41 +127,23 @@ export default function DetalheMesa() {
             <div className="w-1/2 h-full p-4 flex flex-col justify-start items-start bg-slate-100">
               <h2 className="my-2 font-bold text-lg">Pedido da mesa</h2>
               
-              <div className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
-                <h2 className="font-bold">Categoria 01</h2>
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-row justify-between items-center w-full">
-                    <span>Item 01</span>
-                    <span>R$ 0,00</span>
+              {
+                itemsCommand.map(item => (
+                  <div className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
+                    <h2 className="font-bold">{item.category}</h2>
+                    <div className="flex flex-col gap-2">
+                      <div className="flex flex-row justify-between items-center w-full">
+                        <span>{item.product}</span>
+                        <span>{item.price}</span>
+                      </div>
+                      <div className="flex flex-row justify-between items-center w-full">
+                        <span className="font-semibold">Sub-total:</span>
+                        <span>R$ 0,00</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-row justify-between items-center w-full">
-                    <span>Item 02</span>
-                    <span>R$ 0,00</span>
-                  </div>
-                  <div className="flex flex-row justify-between items-center w-full">
-                    <span className="font-semibold">Sub-total:</span>
-                    <span>R$ 0,00</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
-                <h2 className="font-bold">Categoria 03</h2>
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-row justify-between items-center w-full">
-                    <span>Item 01</span>
-                    <span>R$ 0,00</span>
-                  </div>
-                  <div className="flex flex-row justify-between items-center w-full">
-                    <span>Item 02</span>
-                    <span>R$ 0,00</span>
-                  </div>
-                  <div className="flex flex-row justify-between items-center w-full">
-                    <span className="font-semibold">Sub-total:</span>
-                    <span>R$ 0,00</span>
-                  </div>
-                </div>
-              </div>
+                ))
+              }
 
               <div className="flex flex-row justify-between items-center bg-slate-300 w-full p-2 mt-1">
                 <span className="font-bold text-lg">TOTAL</span>

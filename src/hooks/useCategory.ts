@@ -6,6 +6,10 @@ export function useCategory() {
       const res = await fetch('../api/category')
       return res.json();
     },
+    findOnce: async (id: number) => {
+      const { findOnce } = await import('@/lib/database/category.server')
+      return findOnce(id)
+    },
     create: async (data: Omit<ICategory, 'id'>) => {
       const { createCategory } = await import('@/lib/database/category.server')
       return createCategory(data)

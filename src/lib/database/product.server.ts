@@ -45,3 +45,16 @@ export async function removeProduct(id: number) {
     console.log(error)
   }
 }
+
+export async function findByCategory(id: number) {
+  try {
+    const { data } = await supabaseServer
+    .from('produtos')
+    .select('*')
+    .eq('categoryid', id)
+    .order('name', {ascending: true})
+    return data
+  } catch (error) {
+    throw error
+  }  
+}

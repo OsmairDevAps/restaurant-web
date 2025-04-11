@@ -14,6 +14,10 @@ export function useProduct() {
       const { updateProduct } = await import('../lib/database/product.server');
       return updateProduct(data);
     },
+    findByCategory: async (idCategory: number) => {
+      const { findByCategory } = await import('@/lib/database/product.server')
+      return findByCategory(idCategory);
+    },
     remove: async (id:number) => {
       const { removeProduct } = await import('../lib/database/product.server');
       return removeProduct(id);

@@ -39,3 +39,17 @@ export async function removeCategory(id: number) {
     console.log(error)
   }
 }
+
+export async function findOnce(id: number) {
+  try {
+    const { data } = await supabaseServer
+    .from('categorias')
+    .select('*')
+    .eq('id', id)
+    if (data) {
+      return data[0].description
+    }
+  } catch(error) {
+    console.log(error)
+  }
+}

@@ -6,32 +6,9 @@ import { useCommand } from "@/hooks/useCommand";
 import { ICommand } from "@/utils/interface";
 import { useEffect, useState } from "react";
 
-interface IMesa {
-  num: number;
-  price: number;
-  status: string;
-}
-
 export default function Atender() {
   const commandDatabase = useCommand()
   const [commands, setCommands] = useState<ICommand[]>([])
-  const mesas = [
-    { num: 1, price: 30, status: 'ocupada' },
-    { num: 2, price: 0, status: 'disponivel' },
-    { num: 3, price: 430, status: 'ocupada' },
-    { num: 4, price: 850, status: 'ocupada' },
-    { num: 5, price: 0, status: 'disponivel' },
-    { num: 6, price: 0, status: 'disponivel' },
-    { num: 7, price: 0, status: 'cortesia' },
-    { num: 8, price: 0, status: 'disponivel' },
-    { num: 9, price: 0, status: 'disponivel' },
-    { num: 10, price: 0, status: 'disponivel' },
-    { num: 11, price: 0, status: 'reservada' },
-    { num: 12, price: 0, status: 'disponivel' },
-    { num: 13, price: 0, status: 'disponivel' },
-    { num: 14, price: 0, status: 'disponivel' },
-    { num: 15, price: 0, status: 'disponivel' },
-  ];
 
   async function loadCommands() {
     const response = await commandDatabase.list()
@@ -78,8 +55,7 @@ export default function Atender() {
               commands.map(mesa => (
                 <Mesa 
                   key={mesa.id}
-                  num={mesa.num} 
-                  color={mesa.color}
+                  mesa={mesa} 
                 />
               ))
             }

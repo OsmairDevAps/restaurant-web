@@ -5,6 +5,18 @@
       "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
   },
+  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
+    "id": "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__app_js.js"
+    ]
+  },
+  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
+    "id": "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__error_js.js"
+    ]
+  },
   "hooks\\useCategory.ts -> @/lib/database/category.server": {
     "id": "hooks\\useCategory.ts -> @/lib/database/category.server",
     "files": [
@@ -17,8 +29,20 @@
       "static/chunks/_app-pages-browser_src_lib_database_command_server_ts.js"
     ]
   },
+  "hooks\\useItemCommand.ts -> @/lib/database/itemcommand.server": {
+    "id": "hooks\\useItemCommand.ts -> @/lib/database/itemcommand.server",
+    "files": [
+      "static/chunks/_app-pages-browser_src_lib_database_itemcommand_server_ts.js"
+    ]
+  },
   "hooks\\useProduct.ts -> ../lib/database/product.server": {
     "id": "hooks\\useProduct.ts -> ../lib/database/product.server",
+    "files": [
+      "static/chunks/_app-pages-browser_src_lib_database_product_server_ts.js"
+    ]
+  },
+  "hooks\\useProduct.ts -> @/lib/database/product.server": {
+    "id": "hooks\\useProduct.ts -> @/lib/database/product.server",
     "files": [
       "static/chunks/_app-pages-browser_src_lib_database_product_server_ts.js"
     ]

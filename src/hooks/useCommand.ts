@@ -6,6 +6,10 @@ export function useCommand() {
       const res = await fetch('../api/command')
       return res.json();
     },
+    findOnce: async (id: number) => {
+      const { findOnce } = await import('@/lib/database/command.server')
+      return findOnce(id)
+    },
     create: async (data: Omit<ICommand, 'id'>) => {
       const { createCommand } = await import('@/lib/database/command.server')
       return createCommand(data)

@@ -65,3 +65,11 @@ export interface ICommandItem {
   price: number;
   obs: string;
 }
+
+export interface IReservation {
+  id: number;
+  datereservation: Date;
+  nameclient: string;
+  amount: number;
+  commandnumber: number;
+}
