@@ -7,6 +7,7 @@ import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { FaEdit, FaTrashAlt } from "react-icons/fa"
+import { TailSpin } from "react-loading-icons"
 import { z } from "zod"
 
 const commandSchema = z.object({
@@ -16,21 +17,24 @@ const commandSchema = z.object({
 type commandType = z.infer<typeof commandSchema>
 
 export default function RegCommand() {
+  const [isLoading, setIsLoading] = useState(false)
   const [commands, setCommands] = useState<ICommand[]>([])
   const commandDatabase = useCommand()
-  const { 
-    handleSubmit, 
-    register, 
-    reset, 
-    formState: {errors} 
-    } = useForm<commandType>({
-      resolver: zodResolver(commandSchema)
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors }
+  } = useForm<commandType>({
+    resolver: zodResolver(commandSchema)
   })
 
   async function loadCommands() {
+    setIsLoading(true)
     const response = await commandDatabase.list()
     if (response) {
       setCommands(response)
+      setIsLoading(false)
     }
   }
 
@@ -38,13 +42,13 @@ export default function RegCommand() {
     // exclui mesas pre-existentes
     const response = await commandDatabase.list()
     if (response) {
-      response.map((item: ICommand) => commandDatabase.remove(item.id) )
+      response.map((item: ICommand) => commandDatabase.remove(item.id))
     }
 
     // cria novas mesas
     for (let index = 0; index < Number(data.amount); index++) {
       await commandDatabase.create({
-        num: index+1,
+        num: index + 1,
         status: 'disponivel',
         color: 'blue'
       })
@@ -53,7 +57,7 @@ export default function RegCommand() {
     loadCommands()
   }
 
-  async function handleUpdate(com: ICommand) {}
+  async function handleUpdate(com: ICommand) { }
 
   async function handleDelete(id: number) {
     if (confirm("Tem certeza que deseja excluir esta mesa?") == true) {
@@ -65,15 +69,15 @@ export default function RegCommand() {
 
   useEffect(() => {
     loadCommands()
-  },[])
+  }, [])
 
   return (
     <div className="flex flex-row gap-2">
       <div className="flex flex-col w-1/2">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-1/2 gap-2">
-        <div className="flex flex-col gap-2 my-2">
-          <label htmlFor="description">Quantidade de mesas:</label>
-            <Input 
+          <div className="flex flex-col gap-2 my-2">
+            <label htmlFor="description">Quantidade de mesas:</label>
+            <Input
               className="w-[300px]"
               type="text"
               id="amount"
@@ -88,16 +92,17 @@ export default function RegCommand() {
       <div className="flex flex-col w-1/2">
         <h2 className="w-full p-2 font-bold border-b-2 border-b-slate-300 bg-slate-200">Mesas cadastradas</h2>
         <ScrollArea className="h-full w-full rounded-md border">
-          <div className="p-0">
-            {commands.map((item) => (
-              <div key={item.id} className={`flex flex-row justify-between items-center text-sm p-2 border-b-[1px] border-dotted border-b-slate-200 bg-${item.color}-200`}>
-                <div>Mesa {item.num}</div>
-                <div className="flex gap-2">
-                  <button onClick={()=> handleUpdate(item)}><FaEdit size={18} /></button>
-                  <button onClick={()=> handleDelete(item.id)}><FaTrashAlt size={18} /></button>
+          <div className="p-2">
+            {isLoading ? <TailSpin stroke="#121212" /> :
+              commands.map((item) => (
+                <div key={item.id} className={`flex flex-row justify-between items-center text-sm p-2 border-b-[1px] border-dotted border-b-slate-200 bg-${item.color}-200`}>
+                  <div>Mesa {item.num}</div>
+                  <div className="flex gap-2">
+                    <button onClick={() => handleUpdate(item)}><FaEdit size={18} /></button>
+                    <button onClick={() => handleDelete(item.id)}><FaTrashAlt size={18} /></button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </ScrollArea>
       </div>

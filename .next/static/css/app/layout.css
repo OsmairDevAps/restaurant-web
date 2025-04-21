@@ -59,6 +59,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-50: oklch(0.971 0.013 17.38);
     --color-red-700: oklch(0.505 0.213 27.518);
     --color-red-800: oklch(0.444 0.177 26.899);
     --color-orange-200: oklch(0.901 0.076 70.697);
@@ -718,6 +719,9 @@
   }
   .bg-purple-300 {
     background-color: var(--color-purple-300);
+  }
+  .bg-red-50 {
+    background-color: var(--color-red-50);
   }
   .bg-secondary {
     background-color: var(--secondary);

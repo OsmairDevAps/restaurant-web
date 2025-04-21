@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { Bars, Oval, Puff, TailSpin } from 'react-loading-icons'
 import { z } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "@/components/ui/button";
@@ -12,16 +14,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useEffect, useState } from "react";
 import { ICategory, IProduct } from "@/utils/interface";
 import { useCategory } from "@/hooks/useCategory";
 import { useProduct } from "@/hooks/useProduct";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { FaEdit, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 
-
 const productSchema = z.object({
-  categoryid: z.string(), 
+  categoryid: z.string(),
   name: z.string().min(2, 'O nome do produto deve conter pelo menos 2 caracteres.'),
   costprice: z.string(),
   price: z.string().min(1, 'O valor precisa ser informado'),
@@ -30,9 +30,10 @@ const productSchema = z.object({
 type ProductType = z.infer<typeof productSchema>
 
 export default function RegProduct() {
-  const { handleSubmit, control, register, reset, formState:{errors} } = useForm<ProductType>({
+  const { handleSubmit, control, register, reset, formState: { errors } } = useForm<ProductType>({
     resolver: zodResolver(productSchema)
   })
+  const [isLoading, setIsLoading] = useState(false)
   const [isEditting, setIsEditting] = useState(false)
   const [idProduct, setIdProduct] = useState(0)
   const [defaultValues, setDefaultValues] = useState<ProductType>()
@@ -43,20 +44,22 @@ export default function RegProduct() {
 
   async function loadCategories() {
     const response = await categoryDatabase.list()
-    if(response) {
+    if (response) {
       setCategories(response)
     }
   }
 
   async function loadProducts() {
+    setIsLoading(true)
     const response = await productDatabase.list()
-    if(response) {
+    if (response) {
       setProducts(response)
+      setIsLoading(false)
     }
   }
 
   async function onSubmit(data: ProductType) {
-    if(isEditting) {
+    if (isEditting) {
       await productDatabase.update({
         id: idProduct,
         categoryid: Number(data.categoryid),
@@ -95,13 +98,13 @@ export default function RegProduct() {
       price: String(prod.price)
     })
   }
-  
+
   async function handleDelete(id: number) {
     if (confirm("Tem certeza que deseja excluir?") == true) {
       await productDatabase.remove(id)
       alert("Produto excluido!")
       loadProducts()
-    } 
+    }
   }
 
   function handleReset() {
@@ -118,12 +121,12 @@ export default function RegProduct() {
   useEffect(() => {
     loadCategories()
     loadProducts()
-  },[])
+  }, [])
 
   return (
     <div className="flex flex-row gap-2">
 
-      <div>      
+      <div>
         <div className="flex flex-row justify-between items-center w-full p-2 border-b-2 border-b-slate-300 bg-slate-200">
           <h2 className="font-bold">Cadastro de Produtos</h2>
           <button onClick={handleReset}><FaPlusCircle size={18} /></button>
@@ -136,23 +139,23 @@ export default function RegProduct() {
               control={control}
               rules={{ required: "Selecione uma categoria" }}
               render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger className="w-[300px]">
-                  <SelectValue placeholder="Selecione..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {categories.map(item => <SelectItem key={item.id} value={String(item.id)}>{item.description}</SelectItem>)}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger className="w-[300px]">
+                    <SelectValue placeholder="Selecione..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {categories.map(item => <SelectItem key={item.id} value={String(item.id)}>{item.description}</SelectItem>)}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               )}
             />
             {errors.categoryid && <span className="text-red-800">{errors.categoryid?.message}</span>}
           </div>
           <div className="flex flex-col gap-2 my-2">
             <label htmlFor="name" className="font-semibold">Nome do produto:</label>
-            <Input 
+            <Input
               className="w-[300px]"
               type="text"
               id="name"
@@ -163,7 +166,7 @@ export default function RegProduct() {
 
           <div className="flex flex-col gap-2 my-2">
             <label htmlFor="costprice" className="font-semibold">Valor custo:</label>
-            <Input 
+            <Input
               className="w-[300px]"
               type="text"
               id="costprice"
@@ -173,7 +176,7 @@ export default function RegProduct() {
 
           <div className="flex flex-col gap-2 my-2">
             <label htmlFor="price" className="font-semibold">Valor venda:</label>
-            <Input 
+            <Input
               className="w-[300px]"
               type="text"
               id="price"
@@ -192,17 +195,18 @@ export default function RegProduct() {
         <h2 className="w-full p-2 font-bold border-b-2 border-b-slate-300 bg-slate-200">Produtos cadastrados:</h2>
         <ScrollArea className="h-full w-full rounded-md border">
           <div className="p-4">
-            {products.map((item) => (
-              <div key={item.id} className={`flex flex-row justify-between items-center text-sm py-2 border-b-[1px] border-dotted border-b-slate-200`}>
-                <div>
-                  {item.name}
+            {isLoading ? <TailSpin stroke="#121212" /> :
+              products.map((item) => (
+                <div key={item.id} className={`flex flex-row justify-between items-center text-sm py-2 border-b-[1px] border-dotted border-b-slate-200`}>
+                  <div>
+                    {item.name}
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => handleUpdate(item)}><FaEdit size={18} /></button>
+                    <button onClick={() => handleDelete(item.id)}><FaTrashAlt size={18} /></button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <button onClick={()=> handleUpdate(item)}><FaEdit size={18} /></button>
-                  <button onClick={()=> handleDelete(item.id)}><FaTrashAlt size={18} /></button>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         </ScrollArea>
       </div>

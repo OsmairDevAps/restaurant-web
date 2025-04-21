@@ -27,26 +27,26 @@ export default function Caixa() {
         <Menu />
 
         {isCashOpen ?
-          <div className="p-4">
+          <div className="flex flex-col justify-start items-center w-full p-4">
             <div className='flex flex-row justify-center items-center w-full h-10'>
               <h2 className="font-bold text-2xl w-full text-center">FECHAMENTO DE CAIXA</h2>
             </div>
-            <form className="flex flex-col gap-6 w-full justify-center p-2">
+            <form className="flex flex-col gap-6 w-96 justify-center p-2">
               <Button type='button' onClick={FechaCaixa}>Fechar Caixa</Button>
             </form>
           </div>
-        :
-          <div className="p-4">
+          :
+          <div className="flex flex-col justify-start items-center w-full p-4">
             <div className='flex flex-row justify-center items-center w-full h-10'>
               <h2 className="font-bold text-2xl w-full text-center">ABERTURA DE CAIXA</h2>
             </div>
-            <form className="flex flex-col gap-6 w-full justify-center p-2">
+            <form className="flex flex-col gap-6 w-96 justify-center p-2">
               <div className="flex flex-col gap-2 my-2">
                 <label htmlFor="saldoini" className="font-semibold">Saldo Inicial:</label>
-                <Input 
-                  id="saldoini" 
-                  name="saldoini" 
-                  type="text" 
+                <Input
+                  id="saldoini"
+                  name="saldoini"
+                  type="text"
                   defaultValue="0,00"
                 />
                 <span>Informe os valores disponíveis em caixa</span>
