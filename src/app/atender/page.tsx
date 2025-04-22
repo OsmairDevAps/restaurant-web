@@ -2,23 +2,23 @@
 import Header from "@/components/header"
 import Menu from "@/components/menu";
 import Mesa from "@/components/mesa"
-import { useCommand } from "@/hooks/useCommand";
-import { ICommand } from "@/utils/interface";
+import { useMesa } from "@/hooks/useMesa";
+import { IMesa } from "@/utils/interface";
 import { useEffect, useState } from "react";
 
 export default function Atender() {
-  const commandDatabase = useCommand()
-  const [commands, setCommands] = useState<ICommand[]>([])
+  const mesaDatabase = useMesa()
+  const [mesas, setMesas] = useState<IMesa[]>([])
 
-  async function loadCommands() {
-    const response = await commandDatabase.list()
+  async function loadMesas() {
+    const response = await mesaDatabase.listar()
     if(response) {
-      setCommands(response)
+      setMesas(response)
     }
   }
 
   useEffect(() => {
-    loadCommands()
+    loadMesas()
   },[])
 
   return (
@@ -52,7 +52,7 @@ export default function Atender() {
 
           <div className="flex flex-row flex-wrap justify-start items-start w-full gap-8">
             {
-              commands.map(mesa => (
+              mesas.map(mesa => (
                 <Mesa 
                   key={mesa.id}
                   mesa={mesa} 

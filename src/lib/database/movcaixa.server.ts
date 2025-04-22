@@ -3,10 +3,11 @@
 import { supabaseServer } from "../supabase/server";
 import { IMovCaixa } from "../../utils/interface";
 
-export async function createMovCash(data: Omit<IMovCaixa, 'id'>) {
+export async function criaMovCaixa(data: Omit<IMovCaixa, 'id'>) {
   try {
     const insertedRow = await supabaseServer.from('movimentacoescaixa').insert({
-      caixaid: data.caixaid,
+      idcaixa: data.idcaixa,
+      datamov: data.datamov,
       tipo: data.tipo,
       descricao: data.descricao,
       valor: data.valor,
@@ -17,12 +18,13 @@ export async function createMovCash(data: Omit<IMovCaixa, 'id'>) {
   }
 }
 
-export async function updateMovCash(data: IMovCaixa) {
+export async function atualizaMovCaixa(data: IMovCaixa) {
   try {
     await supabaseServer
     .from('movimentacoescaixa')
     .update({
-      caixaid: data.caixaid,
+      idcaixa: data.idcaixa,
+      datamov: data.datamov,
       tipo: data.tipo,
       descricao: data.descricao,
       valor: data.valor,
@@ -34,7 +36,7 @@ export async function updateMovCash(data: IMovCaixa) {
   }
 }
 
-export async function removeMovCash(id: number) {
+export async function excluiMovCaixa(id: number) {
   try {
     await supabaseServer
     .from('movimentacoescaixa')

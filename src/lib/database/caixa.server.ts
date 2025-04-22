@@ -41,7 +41,7 @@ export async function fechaCaixa() {
   const { data: movimentacoes } = await supabaseServer
     .from("movimentacoescaixa")
     .select("tipo, valor")
-    .eq("caixaid", caixa.id);
+    .eq("idcaixa", caixa.id);
   
     // Calcula o saldo final
   let saldo_final = caixa.saldo_inicial;
@@ -91,7 +91,7 @@ export async function reforcoCaixa(reforcoData: IReforcoCaixa) {
   return (data);
 }
 
-export async function createCash(data: Omit<ICaixa, 'id'>) {
+export async function criaCaixa(data: Omit<ICaixa, 'id'>) {
   try {
     const insertedRow = await supabaseServer.from('caixas').insert({
       usuario: data.usuario,
@@ -107,7 +107,7 @@ export async function createCash(data: Omit<ICaixa, 'id'>) {
   }
 }
 
-export async function updateCash(data: ICaixa) {
+export async function atualizaCaixa(data: ICaixa) {
   try {
     await supabaseServer
     .from('caixas')
@@ -126,7 +126,7 @@ export async function updateCash(data: ICaixa) {
   }
 }
 
-export async function removeCash(id: number) {
+export async function excluiCaixa(id: number) {
   try {
     await supabaseServer
     .from('caixas')

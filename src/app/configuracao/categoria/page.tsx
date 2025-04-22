@@ -3,45 +3,47 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { z } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCategory } from "@/hooks/useCategory";
+import { useCategoria } from "@/hooks/useCategoria";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { ICategory } from "@/utils/interface";
+import { ICategoria } from "@/utils/interface";
 import { TailSpin } from "react-loading-icons";
 
 const categorySchema = z.object({
-  description: z.string().min(2, 'A categoria precisa ter no minimo 2 caracteres!')
+  descricao: z.string().min(2, 'A categoria precisa ter no minimo 2 caracteres!')
 })
 type categoryType = z.infer<typeof categorySchema>
 
 export default function RegCategory() {
-  const categoryDatabase = useCategory()
-  const defaultValues = {} as ICategory
+  const IconFaEdit = FaEdit as unknown as React.FC<{size?: number; color?: string;}>;
+  const IconFaTrashAlt = FaTrashAlt as unknown as React.FC<{size?: number; color?: string;}>;
+  const categoriaDatabase = useCategoria()
+  const defaultValues = {} as ICategoria
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isEditting, setIsEditting] = useState<boolean>(false)
-  const [category, setCategory] = useState<ICategory>()
-  const [categories, setCategories] = useState<ICategory[]>([])
+  const [categoria, setCategoria] = useState<ICategoria>()
+  const [categories, setCategories] = useState<ICategoria[]>([])
   const { handleSubmit, register, reset, formState: { errors } } = useForm<categoryType>({
     resolver: zodResolver(categorySchema)
   })
 
   async function listCategories() {
     setIsLoading(true)
-    const response = await categoryDatabase.list()
+    const response = await categoriaDatabase.listar()
     setCategories(response)
     setIsLoading(false)
   }
 
-  async function handleUpdate(cat: ICategory) {
+  async function handleUpdate(cat: ICategoria) {
     setIsEditting(true)
-    setCategory(cat)
+    setCategoria(cat)
     reset(cat)
   }
 
   async function handleDelete(id: number) {
     if (confirm("Tem certeza que deseja excluir?") == true) {
-      await categoryDatabase.remove(id)
+      await categoriaDatabase.excluir(id)
       alert("Categoria excluida!")
       listCategories()
     }
@@ -49,16 +51,16 @@ export default function RegCategory() {
 
   async function onSubmit(data: categoryType) {
     if (isEditting) {
-      await categoryDatabase.update({
-        id: Number(category?.id),
-        description: data.description
+      await categoriaDatabase.atualizar({
+        id: Number(categoria?.id),
+        descricao: data.descricao
       })
       alert('Categoria atualizada com sucesso')
       setIsEditting(false)
       reset(defaultValues)
       listCategories()
     } else {
-      const response = await categoryDatabase.create(data)
+      const response = await categoriaDatabase.criar(data)
       if (response?.insertedRow) {
         alert('Categoria criada com sucesso')
         reset(defaultValues)
@@ -82,10 +84,10 @@ export default function RegCategory() {
           <Input
             className="w-[300px]"
             type="text"
-            id="description"
-            {...register('description')}
+            id="descricao"
+            {...register('descricao')}
           />
-          {errors && <span className="text-red-800">{errors.description?.message}</span>}
+          {errors && <span className="text-red-800">{errors.descricao?.message}</span>}
         </div>
         <Button className="w-[300px]">Salvar</Button>
       </form>
@@ -99,11 +101,11 @@ export default function RegCategory() {
               categories.map((item) => (
                 <div key={item.id} className={`flex flex-row justify-between items-center text-sm py-2 border-b-[1px] border-dotted border-b-slate-200`}>
                   <div>
-                    {item.description}
+                    {item.descricao}
                   </div>
                   <div className="flex gap-2">
-                    <button onClick={() => handleUpdate(item)}><FaEdit size={18} /></button>
-                    <button onClick={() => handleDelete(item.id)}><FaTrashAlt size={18} /></button>
+                    <button onClick={() => handleUpdate(item)}><IconFaEdit size={18} /></button>
+                    <button onClick={() => handleDelete(item.id)}><IconFaTrashAlt size={18} /></button>
                   </div>
                 </div>
               ))}

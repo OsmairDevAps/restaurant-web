@@ -1,23 +1,23 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { IUser } from "@/utils/interface";
+import { IUsuario } from "@/utils/interface";
 
 interface AuthContextType {
   isLogged: boolean;
   setIsLogged: (value: boolean) => void;
-  user: IUser;
-  setUser: (user: IUser) => void;
+  usuario: IUsuario;
+  setUsuario: (usuario: IUsuario) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [usuario, setUsuario] = useState<IUsuario>({} as IUsuario);
 
   return (
-    <AuthContext.Provider value={{ isLogged, setIsLogged, user, setUser }}>
+    <AuthContext.Provider value={{ isLogged, setIsLogged, usuario, setUsuario }}>
       {children}
     </AuthContext.Provider>
   );

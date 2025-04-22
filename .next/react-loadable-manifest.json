@@ -5,40 +5,40 @@
       "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
   },
-  "hooks\\useCategory.ts -> @/lib/database/category.server": {
-    "id": "hooks\\useCategory.ts -> @/lib/database/category.server",
+  "hooks\\useCategoria.ts -> @/lib/database/categoria.server": {
+    "id": "hooks\\useCategoria.ts -> @/lib/database/categoria.server",
     "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_category_server_ts.js"
+      "static/chunks/_app-pages-browser_src_lib_database_categoria_server_ts.js"
     ]
   },
-  "hooks\\useCommand.ts -> @/lib/database/command.server": {
-    "id": "hooks\\useCommand.ts -> @/lib/database/command.server",
+  "hooks\\useItemPedido.ts -> @/lib/database/itempedido.server": {
+    "id": "hooks\\useItemPedido.ts -> @/lib/database/itempedido.server",
     "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_command_server_ts.js"
+      "static/chunks/_app-pages-browser_src_lib_database_itempedido_server_ts.js"
     ]
   },
-  "hooks\\useItemCommand.ts -> @/lib/database/itemcommand.server": {
-    "id": "hooks\\useItemCommand.ts -> @/lib/database/itemcommand.server",
+  "hooks\\useMesa.ts -> @/lib/database/mesa.server": {
+    "id": "hooks\\useMesa.ts -> @/lib/database/mesa.server",
     "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_itemcommand_server_ts.js"
+      "static/chunks/_app-pages-browser_src_lib_database_mesa_server_ts.js"
     ]
   },
-  "hooks\\useProduct.ts -> ../lib/database/product.server": {
-    "id": "hooks\\useProduct.ts -> ../lib/database/product.server",
+  "hooks\\useProduto.ts -> ../lib/database/produto.server": {
+    "id": "hooks\\useProduto.ts -> ../lib/database/produto.server",
     "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_product_server_ts.js"
+      "static/chunks/_app-pages-browser_src_lib_database_produto_server_ts.js"
     ]
   },
-  "hooks\\useProduct.ts -> @/lib/database/product.server": {
-    "id": "hooks\\useProduct.ts -> @/lib/database/product.server",
+  "hooks\\useProduto.ts -> @/lib/database/produto.server": {
+    "id": "hooks\\useProduto.ts -> @/lib/database/produto.server",
     "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_product_server_ts.js"
+      "static/chunks/_app-pages-browser_src_lib_database_produto_server_ts.js"
     ]
   },
-  "hooks\\useUser.ts -> @/lib/database/user.server": {
-    "id": "hooks\\useUser.ts -> @/lib/database/user.server",
+  "hooks\\useUsuario.ts -> @/lib/database/usuario.server": {
+    "id": "hooks\\useUsuario.ts -> @/lib/database/usuario.server",
     "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_user_server_ts.js"
+      "static/chunks/_app-pages-browser_src_lib_database_usuario_server_ts.js"
     ]
   }
 }

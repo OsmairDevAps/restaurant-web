@@ -1,12 +1,12 @@
 'use server';
 
-import { ICategory } from "../../utils/interface";
+import { ICategoria } from "../../utils/interface";
 import { supabaseServer } from "../supabase/server";
 
-export async function createCategory(data: Omit<ICategory, 'id'>) {
+export async function criaCategoria(data: Omit<ICategoria, 'id'>) {
   try {
     const insertedRow = await supabaseServer.from('categorias').insert({
-      description: data.description,
+      description: data.descricao,
     })
     return { insertedRow } 
   } catch(error) {
@@ -14,12 +14,12 @@ export async function createCategory(data: Omit<ICategory, 'id'>) {
   }
 }
 
-export async function updateCategory(data: ICategory) {
+export async function atualizaCategoria(data: ICategoria) {
   try {
     await supabaseServer
     .from('categorias')
     .update({
-      description: data.description,
+      description: data.descricao,
     })
     .eq('id', data.id)
     return
@@ -28,7 +28,7 @@ export async function updateCategory(data: ICategory) {
   }
 }
 
-export async function removeCategory(id: number) {
+export async function excluiCategoria(id: number) {
   try {
     await supabaseServer
     .from('categorias')
@@ -40,7 +40,7 @@ export async function removeCategory(id: number) {
   }
 }
 
-export async function findOnce(id: number) {
+export async function verCategoria(id: number) {
   try {
     const { data } = await supabaseServer
     .from('categorias')

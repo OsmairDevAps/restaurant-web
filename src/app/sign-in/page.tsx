@@ -5,26 +5,26 @@ import bglogin from '@/assets/bglogin.png'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuthContext } from "@/context/AuthContext";
-import { useUser } from "@/hooks/useUser";
+import { useUsuario } from "@/hooks/useUsuario";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 type TInputs = {
-  usuario: string;
+  nomeusuario: string;
   senha: string;
 }
 
 export default function SignIn() {
-  const userDatabase = useUser()
-  const { isLogged, setIsLogged, setUser } = useAuthContext()
+  const userDatabase = useUsuario()
+  const { isLogged, setIsLogged, setUsuario } = useAuthContext()
   const [message, setMessage] = useState('')
   const { handleSubmit, register, formState:{errors} } = useForm<TInputs>()
   
   async function handleLogin(data: TInputs) {
-    const { usuario, senha } = data
-    const response = await userDatabase.login(usuario, senha)
-    if(response.user !== null) {
-      setUser(response.user)
+    const { nomeusuario, senha } = data
+    const response = await userDatabase.logar(nomeusuario, senha)
+    if(response.usuario !== null) {
+      setUsuario(response.usuario)
       setIsLogged(true)
       setMessage('')
       setIsLogged(true)
@@ -54,7 +54,7 @@ export default function SignIn() {
             <Input 
               type="text"
               id="usuario"
-              {...register('usuario')}
+              {...register('nomeusuario')}
             />
           </div>
 

@@ -3,62 +3,52 @@
 import { useEffect, useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { useCategory } from "@/hooks/useCategory"
-import { useItemCommand } from "@/hooks/useItemCommand"
-import { ICategory, ICommand, ICommandItem, IProduct } from "@/utils/interface"
+import { useCategoria } from "@/hooks/useCategoria"
+import { useItemPedido } from "@/hooks/useItemPedido"
+import { ICategoria, IMesa, IItemPedido, IProduto } from "@/utils/interface"
 import Header from "@/components/header"
 import Menu from "@/components/menu"
-import { useProduct } from "@/hooks/useProduct"
-import { useCommand } from "@/hooks/useCommand"
+import { useProduto } from "@/hooks/useProduto"
+import { useMesa } from "@/hooks/useMesa"
 
 export default function DetalheMesa() {
   const [categoryName, setCategoryName] = useState('')
-  const [categories, setCategories] = useState<ICategory[]>([])
-  const [products, setProducts] = useState<IProduct[]>([])
-  const [command, setCommand] = useState<ICommand>()
-  const [itemsCommand, setItemsCommand] = useState<ICommandItem[]>([])
-  const categoryDatabase = useCategory()
-  const productDatabase = useProduct()
-  const mesaDatabase = useCommand()
-  const itemCommandDatabase = useItemCommand()
+  const [categories, setCategories] = useState<ICategoria[]>([])
+  const [products, setProducts] = useState<IProduto[]>([])
+  const [command, setCommand] = useState<IMesa>()
+  const [itemsCommand, setItemsCommand] = useState<IItemPedido[]>([])
+  const categoryDatabase = useCategoria()
+  const productDatabase = useProduto()
+  const mesaDatabase = useMesa()
+  const itemCommandDatabase = useItemPedido()
   const params = useParams()
   const router = useRouter()
   const { mesa } = params
 
   async function LoadCategories() {
-    const response = await categoryDatabase.list()
+    const response = await categoryDatabase.listar()
     if (response) {
       setCategories(response)
     }
   }
 
-  async function LoadProducts(idCategory: number) {
-    const cat = await categoryDatabase.findOnce(idCategory)
+  async function LoadProdutos(idCategoria: number) {
+    const cat = await categoryDatabase.verCategoria(idCategoria)
     if (cat) {
       setCategoryName(cat)
     }
-    const response = await productDatabase.findByCategory(idCategory)
+    const response = await productDatabase.localizaPorCategoria(idCategoria)
     if(response) {
       setProducts(response)
     }
   }
 
-  async function SaveItemCommand(product: IProduct) {
-    await itemCommandDatabase.create({
-      idcommand: Number(mesa),
-      client: '',
-      clientdoc: '',
-      category: categoryName,
-      product: product.name,
-      amount: 1,
-      price: product.price,
-      obs: ''
-  })
-    loadItemsCommand(Number(mesa))
+  async function SaveItemPedido(product: IProduto) {
+    // verificar
   }
 
-  async function loadItemsCommand(idcommand: number) {
-    const response = await itemCommandDatabase.search(idcommand)
+  async function loadItemsPedido(idcommand: number) {
+    const response = await itemCommandDatabase.localizar(idcommand)
     if (response) {
       setItemsCommand(response)
     }
@@ -69,7 +59,7 @@ export default function DetalheMesa() {
   }
 
   async function loadMesa(id: number) {
-    const response = await mesaDatabase.findOnce(id)
+    const response = await mesaDatabase.verMesa(id)
     if (response) {
       setCommand(response)
     }
@@ -78,7 +68,7 @@ export default function DetalheMesa() {
   useEffect(() => {
     loadMesa(Number(mesa))
     LoadCategories()
-    loadItemsCommand(Number(mesa))
+    // loadItemsCommand(Number(mesa))
   },[])
 
   return (
@@ -97,10 +87,10 @@ export default function DetalheMesa() {
                   <h2 className="font-semibold">CATEGORIA:</h2>
                   {categories.map(item =>  
                     <button key={item.id} 
-                      onClick={() => LoadProducts(item.id) }
+                      onClick={() => LoadProdutos(item.id) }
                       className="bg-purple-300 w-48 h-10 cursor-pointer"
                     >
-                      {item.description}
+                      {item.descricao}
                     </button>)
                   }
                 </div>
@@ -111,10 +101,10 @@ export default function DetalheMesa() {
                     products.map(item => 
                     <button 
                       key={item.id} 
-                      onClick={() => SaveItemCommand(item) }
+                      onClick={() => SaveItemPedido(item) }
                       className="bg-indigo-300 w-60 h-10 m-1 cursor-pointer"
                     >
-                      {item.name}
+                      {item.nome}
                     </button>)
                   }
                 </div>
@@ -129,26 +119,26 @@ export default function DetalheMesa() {
               <h2 className="my-2 font-bold text-lg">Pedido da mesa</h2>
               
               {
-                itemsCommand.map(item => (
-                  <div key={item.id} className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
-                    <h2 className="font-bold">{item.category}</h2>
+                //itemsCommand.map(item => (
+                  <div className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
+                    <h2 className="font-bold">{/*item.categoria*/}</h2>
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-row justify-between items-center w-full">
-                        <span>{item.product}</span>
+                        <span>{/*item.product*/}</span>
                         <div className="flex flex-row justify-center items-center gap-4">
                           <button
                             className="p-2 bg-red-100 flex justify-center items-center w-10 cursor-pointer"
                           >
                             <span className="font-bold text-lg">-</span>
                           </button>
-                          <span>{item.amount}</span>
+                          <span>{/*item.amount*/}</span>
                             <button
                               className="p-2 bg-blue-100 flex justify-center items-center w-10 cursor-pointer"
                             >
                             <span className="font-bold text-lg">+</span>
                           </button>
                         </div>
-                        <span>{item.price}</span>
+                        <span>{/*item.price*/}</span>
                       </div>
                       <div className="flex flex-row justify-between items-center w-full">
                         <span className="font-semibold">Sub-total:</span>
@@ -156,7 +146,7 @@ export default function DetalheMesa() {
                       </div>
                     </div>
                   </div>
-                ))
+                //))
               }
 
               <div className="flex flex-row justify-between items-center bg-slate-300 w-full p-2 mt-1">

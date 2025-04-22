@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useCommand } from "@/hooks/useCommand"
-import { ICommand } from "@/utils/interface"
+import { useMesa } from "@/hooks/useMesa"
+import { IMesa } from "@/utils/interface"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { useEffect, useState } from "react"
@@ -10,65 +10,67 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa"
 import { TailSpin } from "react-loading-icons"
 import { z } from "zod"
 
-const commandSchema = z.object({
+const mesaSchema = z.object({
   amount: z.string().min(1, 'É necessário informar a quantidade total de mesas.'),
 })
 
-type commandType = z.infer<typeof commandSchema>
+type mesaType = z.infer<typeof mesaSchema>
 
-export default function RegCommand() {
+export default function RegMesa() {
+  const IconFaEdit = FaEdit as unknown as React.FC<{ size?: number; color?: string;}>;
+  const IconFaTrashAlt = FaTrashAlt as unknown as React.FC<{ size?: number; color?: string;}>;
   const [isLoading, setIsLoading] = useState(false)
-  const [commands, setCommands] = useState<ICommand[]>([])
-  const commandDatabase = useCommand()
+  const [mesas, setMesas] = useState<IMesa[]>([])
+  const mesaDatabase = useMesa()
   const {
     handleSubmit,
     register,
     reset,
     formState: { errors }
-  } = useForm<commandType>({
-    resolver: zodResolver(commandSchema)
+  } = useForm<mesaType>({
+    resolver: zodResolver(mesaSchema)
   })
 
-  async function loadCommands() {
+  async function loadMesas() {
     setIsLoading(true)
-    const response = await commandDatabase.list()
+    const response = await mesaDatabase.listar()
     if (response) {
-      setCommands(response)
+      setMesas(response)
       setIsLoading(false)
     }
   }
 
-  async function onSubmit(data: commandType) {
+  async function onSubmit(data: mesaType) {
     // exclui mesas pre-existentes
-    const response = await commandDatabase.list()
+    const response = await mesaDatabase.listar()
     if (response) {
-      response.map((item: ICommand) => commandDatabase.remove(item.id))
+      response.map((item: IMesa) => mesaDatabase.excluir(item.id))
     }
 
     // cria novas mesas
     for (let index = 0; index < Number(data.amount); index++) {
-      await commandDatabase.create({
+      await mesaDatabase.criar({
         num: index + 1,
         status: 'disponivel',
-        color: 'blue'
+        cor: 'blue'
       })
     }
     alert('Mesas cadastradas!')
-    loadCommands()
+    loadMesas()
   }
 
-  async function handleUpdate(com: ICommand) { }
+  async function handleUpdate(com: IMesa) { }
 
   async function handleDelete(id: number) {
     if (confirm("Tem certeza que deseja excluir esta mesa?") == true) {
-      await commandDatabase.remove(id)
+      await mesaDatabase.excluir(id)
       alert('Mesa excluida com sucesso!')
-      loadCommands()
+      loadMesas()
     }
   }
 
   useEffect(() => {
-    loadCommands()
+    loadMesas()
   }, [])
 
   return (
@@ -94,12 +96,13 @@ export default function RegCommand() {
         <ScrollArea className="h-full w-full rounded-md border">
           <div className="p-2">
             {isLoading ? <TailSpin stroke="#121212" /> :
-              commands.map((item) => (
-                <div key={item.id} className={`flex flex-row justify-between items-center text-sm p-2 border-b-[1px] border-dotted border-b-slate-200 bg-${item.color}-200`}>
+              mesas.map((item) => (
+                <div key={item.id} 
+                  className={`flex flex-row justify-between items-center text-sm p-2 border-b-[1px] border-dotted border-b-slate-200 bg-${item.cor}-200`}>
                   <div>Mesa {item.num}</div>
                   <div className="flex gap-2">
-                    <button onClick={() => handleUpdate(item)}><FaEdit size={18} /></button>
-                    <button onClick={() => handleDelete(item.id)}><FaTrashAlt size={18} /></button>
+                    <button onClick={() => handleUpdate(item)}><IconFaEdit size={18} /></button>
+                    <button onClick={() => handleDelete(item.id)}><IconFaTrashAlt size={18} /></button>
                   </div>
                 </div>
               ))}

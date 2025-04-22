@@ -1,16 +1,17 @@
 'use server'
 
 import { supabaseServer } from "../supabase/server";
-import { IProduct } from "../../utils/interface";
+import { IProduto } from "../../utils/interface";
 
-export async function createProduct(data: Omit<IProduct, 'id'>) {
+export async function criaProduto(data: Omit<IProduto, 'id'>) {
   try {
     const insertedRow = await supabaseServer
     .from('produtos')
     .insert({
-      categoryid: data.categoryid,
-      name: data.name,
-      price: data.price
+      idcategoria: data.idcategoria,
+      name: data.nome,
+      valorcusto: data.valorcusto,
+      valorfinal: data.valorfinal
     })
     return { insertedRow } 
   } catch(error) {
@@ -18,14 +19,15 @@ export async function createProduct(data: Omit<IProduct, 'id'>) {
   }
 }
 
-export async function updateProduct(data: IProduct) {
+export async function atualizaProduto(data: IProduto) {
   try {
     await supabaseServer
     .from('produtos')
     .update({
-      categoryid: data.categoryid,
-      name: data.name,
-      price: data.price
+      idcategoria: data.idcategoria,
+      name: data.nome,
+      valorcusto: data.valorcusto,
+      valorfinal: data.valorfinal
     })
     .eq('id', data.id)
     return
@@ -34,7 +36,7 @@ export async function updateProduct(data: IProduct) {
   }
 }
 
-export async function removeProduct(id: number) {
+export async function excluiProduto(id: number) {
   try {
     await supabaseServer
     .from('produtos')
@@ -46,13 +48,13 @@ export async function removeProduct(id: number) {
   }
 }
 
-export async function findByCategory(id: number) {
+export async function localizaPorCategoria(idcategoria: number) {
   try {
     const { data } = await supabaseServer
     .from('produtos')
     .select('*')
-    .eq('categoryid', id)
-    .order('name', {ascending: true})
+    .eq('idcategoria', idcategoria)
+    .order('nome', {ascending: true})
     return data
   } catch (error) {
     throw error

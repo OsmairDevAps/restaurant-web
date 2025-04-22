@@ -15,6 +15,13 @@ import { FaCashRegister, FaChartBar, FaCog, FaHeadset, FaHome, FaLock, FaMoneyCh
 
 export default function Menu() {
   const { isCashOpen, setIsCashOpen } = useCashRegisterContext()
+  const IconHome = FaHome as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
+  const IconLock = FaLock as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
+  const IconMoneyCheckAlt = FaMoneyCheckAlt as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
+  const IconCashRegister = FaCashRegister as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
+  const IconHeadset = FaHeadset as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
+  const IconChartBar = FaChartBar as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
+  const IconCog = FaCog as unknown as React.FC<{ size?: number; color?: string; className?:string; }>;
   const router = useRouter()
 
   function openCash() {
@@ -29,7 +36,7 @@ export default function Menu() {
     <div className="flex flex-col w-32 items-center h-full pt-6 pl-2 pr-2 gap-6 bg-slate-100 border-r-[1px] border-r-slate-300">
     <div>
       <Link href="/dashboard" className="flex flex-col items-center justify-center w-40 text-slate-600">
-        <FaHome className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+        <IconHome className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
         <span className="text-md text-slate-950 hover:cursor-pointer">Home</span>
       </Link>
     </div>
@@ -38,17 +45,17 @@ export default function Menu() {
       {isCashOpen ? 
         <div>
           <button onClick={closeCash} className="flex flex-col items-center justify-center w-40 text-slate-600 mb-4">
-            <FaLock className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+            <IconLock className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
             <span className="text-md text-slate-950 hover:cursor-pointer">Fechar Caixa</span>
           </button>
           <Link href='/reforco' className="flex flex-col items-center justify-center w-40 text-slate-600">
-            <FaMoneyCheckAlt className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+            <IconMoneyCheckAlt className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
             <span className="text-md text-slate-950 hover:cursor-pointer">Reforçar Caixa</span>
           </Link>
         </div>
       :
       <button onClick={openCash} className='flex flex-col items-center justify-center w-40 text-slate-600'>
-          <FaCashRegister className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+          <IconCashRegister className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
           <span className="text-md text-slate-950 hover:cursor-pointer">Abrir Caixa</span>
         </button>
       }
@@ -57,21 +64,21 @@ export default function Menu() {
 
     <div>
       <Link href="/atender" className="flex flex-col items-center justify-center w-40 text-slate-600">
-        <FaHeadset className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+        <IconHeadset className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
         <span className="text-md text-slate-950 hover:cursor-pointer">Atender</span>
       </Link>
     </div>
 
     <div>
       <Link href="/relatorio" className="flex flex-col items-center justify-center w-40 text-slate-600">
-        <FaChartBar className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+        <IconChartBar className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
         <span className="text-md text-slate-950 hover:cursor-pointer">Relatórios</span>
       </Link>
     </div>
 
     <div>
       <Link href="/configuracao" className="flex flex-col items-center justify-center w-40 text-slate-600">
-        <FaCog className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+        <IconCog className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
         <span className="text-md text-slate-950 hover:cursor-pointer">Configurações</span>
       </Link>
     </div>

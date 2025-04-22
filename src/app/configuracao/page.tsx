@@ -5,9 +5,9 @@ import Menu from "@/components/menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import RegCategory from "./category/page";
-import RegProduct from "./product/page";
-import RegCommand from "./command/page";
+import RegCategory from "./categoria/page";
+import RegProduct from "./produto/page";
+import RegCommand from "./mesa/page";
 
 export default function Configuracao() {
   const [categoryClicked, setCategoryClicked] = useState('')

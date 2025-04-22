@@ -1,13 +1,14 @@
 'use server'
 
 import { supabaseServer } from "../supabase/server";
-import { ICommand } from "../../utils/interface";
+import { IMesa } from "../../utils/interface";
 
-export async function createCommand(data: Omit<ICommand, 'id'>) {
+export async function criaMesa(data: Omit<IMesa, 'id'>) {
   try {
     const insertedRow = await supabaseServer.from('mesas').insert({
       num: data.num,
-      status: data.status
+      status: data.status,
+      cor: data.cor
     })
     return { insertedRow } 
   } catch(error) {
@@ -15,13 +16,14 @@ export async function createCommand(data: Omit<ICommand, 'id'>) {
   }
 }
 
-export async function updateCommand(data: ICommand) {
+export async function atualizaMesa(data: IMesa) {
   try {
     await supabaseServer
     .from('mesas')
     .update({
       num: data.num,
-      status: data.status
+      status: data.status,
+      cor: data.cor
     })
     .eq('id', data.id)
     return 
@@ -30,7 +32,7 @@ export async function updateCommand(data: ICommand) {
   }
 }
 
-export async function removeCommand(id: number) {
+export async function excluiMesa(id: number) {
   try {
     await supabaseServer
     .from('mesas')
@@ -42,7 +44,7 @@ export async function removeCommand(id: number) {
   }
 }
 
-export async function findOnce(id: number) {
+export async function verMesa(id: number) {
   try {
     const { data, error } = await supabaseServer
     .from('mesas')
