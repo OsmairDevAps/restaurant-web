@@ -8,7 +8,7 @@ export async function createItemCommand(data: Omit<ICommandItem, 'id'>) {
     const insertedRow = await supabaseServer
     .from('itensmesa')
     .insert({
-      idtable: data.idtable,
+      idcommand: data.idcommand,
       category: data.category,
       product: data.product,
       amount: data.amount,
@@ -28,7 +28,7 @@ export async function updateItemCommand(data: ICommandItem) {
     await supabaseServer
     .from('itensmesa')
     .update({
-      idtable: data.idtable,
+      idcommand: data.idcommand,
       category: data.category,
       product: data.product,
       amount: data.amount,
@@ -51,6 +51,18 @@ export async function removeItemCommand(id: number) {
     .delete()
     .eq('id', id)
     return
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export async function searchItems(idcommand: number) {
+  try {
+    const { data } = await supabaseServer
+    .from('itensmesa')
+    .select('*')
+    .eq('idcommand', idcommand)
+    return data
   } catch(error) {
     console.log(error)
   }

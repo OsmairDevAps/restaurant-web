@@ -56,7 +56,7 @@ export interface ICommand {
 
 export interface ICommandItem {
   id: number;
-  idtable: number;
+  idcommand: number;
   client: string;
   clientdoc: string;
   category: string;

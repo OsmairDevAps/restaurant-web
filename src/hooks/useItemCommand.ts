@@ -18,5 +18,9 @@ export function useItemCommand() {
       const { removeItemCommand } = await import('@/lib/database/itemcommand.server')
       return removeItemCommand(id)
     },
+    search: async(idcommand: number) => {
+      const { searchItems } = await import('@/lib/database/itemcommand.server')
+      return searchItems(idcommand)
+    },
   }
 }

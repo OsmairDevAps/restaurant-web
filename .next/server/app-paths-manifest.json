@@ -1,11 +1,6 @@
 {
-  "/api/products/route": "app/api/products/route.js",
   "/api/category/route": "app/api/category/route.js",
-  "/api/command/route": "app/api/command/route.js",
   "/page": "app/page.js",
-  "/reforco/page": "app/reforco/page.js",
   "/atender/page": "app/atender/page.js",
-  "/relatorio/page": "app/relatorio/page.js",
-  "/configuracao/page": "app/configuracao/page.js",
   "/atender/[mesa]/page": "app/atender/[mesa]/page.js"
 }

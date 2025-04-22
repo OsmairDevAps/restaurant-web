@@ -45,7 +45,7 @@ export default function DetalheMesa() {
 
   async function SaveItemCommand(product: IProduct) {
     await itemCommandDatabase.create({
-      idtable: 0,
+      idcommand: Number(mesa),
       client: '',
       clientdoc: '',
       category: categoryName,
@@ -53,12 +53,12 @@ export default function DetalheMesa() {
       amount: 1,
       price: product.price,
       obs: ''
-    })
-    loadItemsCommand()
+  })
+    loadItemsCommand(Number(mesa))
   }
 
-  async function loadItemsCommand() {
-    const response = await itemCommandDatabase.list()
+  async function loadItemsCommand(idcommand: number) {
+    const response = await itemCommandDatabase.search(idcommand)
     if (response) {
       setItemsCommand(response)
     }
@@ -78,6 +78,7 @@ export default function DetalheMesa() {
   useEffect(() => {
     loadMesa(Number(mesa))
     LoadCategories()
+    loadItemsCommand(Number(mesa))
   },[])
 
   return (
@@ -97,7 +98,7 @@ export default function DetalheMesa() {
                   {categories.map(item =>  
                     <button key={item.id} 
                       onClick={() => LoadProducts(item.id) }
-                      className="bg-purple-300 w-48 h-10"
+                      className="bg-purple-300 w-48 h-10 cursor-pointer"
                     >
                       {item.description}
                     </button>)
@@ -111,7 +112,7 @@ export default function DetalheMesa() {
                     <button 
                       key={item.id} 
                       onClick={() => SaveItemCommand(item) }
-                      className="bg-indigo-300 w-60 h-10 m-1"
+                      className="bg-indigo-300 w-60 h-10 m-1 cursor-pointer"
                     >
                       {item.name}
                     </button>)
@@ -129,11 +130,24 @@ export default function DetalheMesa() {
               
               {
                 itemsCommand.map(item => (
-                  <div className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
+                  <div key={item.id} className="w-full border-[1px] border-slate-300 bg-slate-300 p-2 my-1">
                     <h2 className="font-bold">{item.category}</h2>
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-row justify-between items-center w-full">
                         <span>{item.product}</span>
+                        <div className="flex flex-row justify-center items-center gap-4">
+                          <button
+                            className="p-2 bg-red-100 flex justify-center items-center w-10 cursor-pointer"
+                          >
+                            <span className="font-bold text-lg">-</span>
+                          </button>
+                          <span>{item.amount}</span>
+                            <button
+                              className="p-2 bg-blue-100 flex justify-center items-center w-10 cursor-pointer"
+                            >
+                            <span className="font-bold text-lg">+</span>
+                          </button>
+                        </div>
                         <span>{item.price}</span>
                       </div>
                       <div className="flex flex-row justify-between items-center w-full">
