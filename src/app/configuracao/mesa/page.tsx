@@ -9,6 +9,11 @@ import { useForm } from "react-hook-form"
 import { FaEdit, FaTrashAlt } from "react-icons/fa"
 import { TailSpin } from "react-loading-icons"
 import { z } from "zod"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 const mesaSchema = z.object({
   amount: z.string().min(1, 'É necessário informar a quantidade total de mesas.'),
@@ -19,7 +24,9 @@ type mesaType = z.infer<typeof mesaSchema>
 export default function RegMesa() {
   const IconFaEdit = FaEdit as unknown as React.FC<{ size?: number; color?: string;}>;
   const IconFaTrashAlt = FaTrashAlt as unknown as React.FC<{ size?: number; color?: string;}>;
+  const [popoverAberto, setPopoverAberto] = useState<null | string>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [statusMesa, setStatusMesa] = useState('')
   const [mesas, setMesas] = useState<IMesa[]>([])
   const mesaDatabase = useMesa()
   const {
@@ -30,6 +37,30 @@ export default function RegMesa() {
   } = useForm<mesaType>({
     resolver: zodResolver(mesaSchema)
   })
+
+  async function alterarStatusMesa(mesa: IMesa, novoStatus: string) {
+    let novaCor = ''
+    if (novoStatus === 'disponivel') novaCor = 'blue'
+    if (novoStatus === 'ocupada') novaCor = 'orange'
+    if (novoStatus === 'reservada') novaCor = 'yellow'
+    if (novoStatus === 'cortesia') novaCor = 'violet'
+    // Atualiza localmente para feedback instantâneo
+    setMesas(prev =>
+      prev.map(m =>
+        m.id === mesa.id
+          ? { ...m, status: novoStatus, cor: novaCor }
+          : m
+      )
+    )
+    setPopoverAberto(null)
+    mesaDatabase.atualizar({
+      id: mesa.id,
+      num: mesa.num,
+      cor: novaCor,
+      status: novoStatus
+    })
+    await loadMesas()
+  }
 
   async function loadMesas() {
     setIsLoading(true)
@@ -100,6 +131,16 @@ export default function RegMesa() {
                 <div key={item.id} 
                   className={`flex flex-row justify-between items-center text-sm p-2 border-b-[1px] border-dotted border-b-slate-200 bg-${item.cor}-200`}>
                   <div>Mesa {item.num}</div>
+                  <div>
+                  <Popover open={popoverAberto === String(item.id)} onOpenChange={(open) => setPopoverAberto(open ? String(item.id) : null)}>
+                    <PopoverTrigger>{item.status}</PopoverTrigger>
+                    <PopoverContent className="flex flex-col gap-2">
+                      <button onClick={() => alterarStatusMesa(item, "disponivel")}>Disponivel</button>
+                      <button onClick={() => alterarStatusMesa(item, "ocupada")}>Ocupada</button>
+                      <button onClick={() => alterarStatusMesa(item, "cortesia")}>Cortesia</button>
+                    </PopoverContent>
+                  </Popover>
+                  </div>
                   <div className="flex gap-2">
                     <button onClick={() => handleUpdate(item)}><IconFaEdit size={18} /></button>
                     <button onClick={() => handleDelete(item.id)}><IconFaTrashAlt size={18} /></button>

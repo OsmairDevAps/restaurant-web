@@ -4,7 +4,7 @@ import { IUsuario } from '@/utils/interface';
 export function useUsuario() {
   return {
     listar: async () => {
-      const res = await fetch('../api/users');
+      const res = await fetch('../api/usuario');
       return res.json();
     },
     criar: async (data:Omit<IUsuario,'id'>) => {

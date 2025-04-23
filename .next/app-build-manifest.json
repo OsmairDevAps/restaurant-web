@@ -16,35 +16,40 @@
       "static/chunks/main-app.js",
       "static/chunks/app/configuracao/page.js"
     ],
+    "/api/mesa/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/mesa/route.js"
+    ],
     "/api/categoria/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/categoria/route.js"
-    ],
-    "/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
     ],
     "/api/produto/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/produto/route.js"
     ],
-    "/api/mesa/route": [
+    "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/mesa/route.js"
+      "static/chunks/app/dashboard/page.js"
     ],
-    "/relatorio/page": [
+    "/api/reserva/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/relatorio/page.js"
+      "static/chunks/app/api/reserva/route.js"
     ],
     "/atender/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/atender/page.js"
+    ],
+    "/relatorio/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/relatorio/page.js"
     ],
     "/atender/[mesa]/page": [
       "static/chunks/webpack.js",

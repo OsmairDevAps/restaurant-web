@@ -59,3 +59,19 @@ export async function verMesa(id: number) {
     throw error
   }
 }
+
+export async function verMesaPorNumero(num: number) {
+  try {
+    const { data, error } = await supabaseServer
+    .from('mesas')
+    .select('*')
+    .eq('num', num)
+    if (data) {
+      return data[0]
+    } else {
+      return error
+    }
+  } catch(error) {
+    throw error
+  }
+}

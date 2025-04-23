@@ -10,6 +10,10 @@ export function useMesa() {
       const { verMesa } = await import('@/lib/database/mesa.server')
       return verMesa(id)
     },
+    verMesaPorNumero: async (num: number) => {
+      const { verMesaPorNumero } = await import('@/lib/database/mesa.server')
+      return verMesaPorNumero(num)
+    },
     criar: async (data: Omit<IMesa, 'id'>) => {
       const { criaMesa } = await import('@/lib/database/mesa.server')
       return criaMesa(data)

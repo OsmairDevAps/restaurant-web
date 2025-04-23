@@ -10,6 +10,7 @@ import Header from "@/components/header"
 import Menu from "@/components/menu"
 import { useProduto } from "@/hooks/useProduto"
 import { useMesa } from "@/hooks/useMesa"
+import { usePedido } from "@/hooks/usePedido"
 
 export default function DetalheMesa() {
   const [categoryName, setCategoryName] = useState('')
@@ -19,6 +20,7 @@ export default function DetalheMesa() {
   const [itemsCommand, setItemsCommand] = useState<IItemPedido[]>([])
   const categoryDatabase = useCategoria()
   const productDatabase = useProduto()
+  const pedidoDatabase = usePedido()
   const mesaDatabase = useMesa()
   const itemCommandDatabase = useItemPedido()
   const params = useParams()
@@ -44,7 +46,23 @@ export default function DetalheMesa() {
   }
 
   async function SaveItemPedido(product: IProduto) {
-    // verificar
+    // pedidos:
+    // id
+    // idmesa  
+
+    // itens:
+    // id
+    // descricao
+    // quant
+    
+    // e depois itens de pedido:
+    // id
+    // idpedido
+    // iditem
+    // quant
+    // valor
+    // Cria o pedido da mesa escolhida
+    
   }
 
   async function loadItemsPedido(idcommand: number) {
