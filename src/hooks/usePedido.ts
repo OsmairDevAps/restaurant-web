@@ -6,9 +6,13 @@ export function usePedido() {
       const res = await fetch('../api/pedido')
       return res.json();
     },
-    verMesa: async (id: number) => {
+    verPedido: async (id: number) => {
       const { verPedido } = await import('@/lib/database/pedido.server')
       return verPedido(id)
+    },
+    verPedidosPorMesa: async (idmesa: number) => {
+      const { verPedidosPorMesa } = await import('@/lib/database/pedido.server')
+      return verPedidosPorMesa(idmesa)
     },
     criar: async (data: Omit<IPedido, 'id'>) => {
       const { criaPedido } = await import('@/lib/database/pedido.server')

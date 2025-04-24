@@ -48,7 +48,6 @@ export interface IItemPedido {
 export interface IItem {
   id: number;
   descricao: string;
-  quant: number;
 }
 
 export interface IPagamento {

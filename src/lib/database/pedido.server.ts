@@ -3,12 +3,12 @@
 import { supabaseServer } from "../supabase/server";
 import { IPedido } from "../../utils/interface";
 
-export async function criaPedido(data: Omit<IPedido, 'id'>) {
+export async function criaPedido(dados: Omit<IPedido, 'id'>) {
   try {
-    const insertedRow = await supabaseServer.from('pedidos').insert({
-      idmesa: data.idmesa
-    })
-    return { insertedRow } 
+    const { data } = await supabaseServer.from('pedidos').insert({
+      idmesa: dados.idmesa
+    }).select('id')
+    if (data) return data[0].id
   } catch(error) {
     throw error
   }
@@ -51,6 +51,20 @@ export async function verPedido(id: number) {
     } else {
       return error
     }
+  } catch(error) {
+    throw error
+  }
+}
+
+export async function verPedidosPorMesa(idmesa: number) {
+  try {
+    const { data } = await supabaseServer
+    .from('pedidos')
+    .select('*')
+    .eq('idmesa', idmesa)
+    if (data) {
+      return data[0]
+    } 
   } catch(error) {
     throw error
   }

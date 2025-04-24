@@ -3,17 +3,17 @@
 import { supabaseServer } from "../supabase/server";
 import { IProduto } from "../../utils/interface";
 
-export async function criaProduto(data: Omit<IProduto, 'id'>) {
+export async function criaProduto(dados: Omit<IProduto, 'id'>) {
   try {
-    const insertedRow = await supabaseServer
+    const { data } = await supabaseServer
     .from('produtos')
     .insert({
-      idcategoria: data.idcategoria,
-      name: data.nome,
-      valorcusto: data.valorcusto,
-      valorfinal: data.valorfinal
-    })
-    return { insertedRow } 
+      idcategoria: dados.idcategoria,
+      nome: dados.nome,
+      valorcusto: dados.valorcusto,
+      valorfinal: dados.valorfinal
+    }).select('id')
+    if (data) return data[0].id
   } catch(error) {
     console.log(error)
   }

@@ -1,8 +1,7 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/categoria/route": "app/api/categoria/route.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/configuracao/page": "app/configuracao/page.js",
   "/atender/page": "app/atender/page.js",
-  "/atender/[mesa]/page": "app/atender/[mesa]/page.js",
-  "/relatorio/page": "app/relatorio/page.js"
+  "/atender/[idmesa]/page": "app/atender/[idmesa]/page.js",
+  "/configuracao/page": "app/configuracao/page.js"
 }

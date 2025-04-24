@@ -1,3 +1,4 @@
+import { listaItensPedidos } from '@/lib/database/itempedido.server';
 import { IItemPedido } from '@/utils/interface';
 
 export function useItemPedido() {
@@ -18,9 +19,21 @@ export function useItemPedido() {
       const { excluiItemPedido } = await import('@/lib/database/itempedido.server')
       return excluiItemPedido(id)
     },
-    localizar: async(idPedido: number) => {
+    localizaritens: async(idPedido: number) => {
       const { localizarItens } = await import('@/lib/database/itempedido.server')
       return localizarItens(idPedido)
+    },
+    verpormesa: async(idPedido: number) => {
+      const { listaItensPedidos } = await import('@/lib/database/itempedido.server')
+      return listaItensPedidos(idPedido)
+    },
+    veritempedido: async(id: number) => {
+      const { verItemPedido } = await import('@/lib/database/itempedido.server')
+      return verItemPedido(id)
+    },
+    listaitenspedidos: async(idpedido: number) => {
+      const { listaItensPedidos } = await import('@/lib/database/itempedido.server')
+      return listaItensPedidos(idpedido)
     },
   }
 }

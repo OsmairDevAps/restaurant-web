@@ -25,7 +25,14 @@ const productSchema = z.object({
   valorcusto: z.string(),
   valorfinal: z.string().min(1, 'O valor precisa ser informado'),
 })
-
+type TProduto = {
+  categoria: string;
+  id: number;
+  idcategoria: number;
+  nome: string;
+  valorcusto: number;
+  valorfinal: number;
+}
 type ProductType = z.infer<typeof productSchema>
 
 export default function RegProduct() {
@@ -42,7 +49,7 @@ export default function RegProduct() {
   const categoriaDatabase = useCategoria()
   const produtoDatabase = useProduto()
   const [categorias, setCategorias] = useState<ICategoria[]>([])
-  const [produtos, setProdutos] = useState<IProduto[]>([])
+  const [produtos, setProdutos] = useState<TProduto[]>([])
 
   async function loadCategorias() {
     const response = await categoriaDatabase.listar()
@@ -80,7 +87,8 @@ export default function RegProduct() {
         valorcusto: Number(data.valorcusto),
         valorfinal: Number(data.valorfinal),
       })
-      if (response?.insertedRow) {
+      reset(defaultValues)
+      if (response) {
         alert('Produto cadastrado com sucesso.')
         loadProdutos()
         reset()
@@ -193,16 +201,15 @@ export default function RegProduct() {
         </form>
       </div>
 
-      <div className="flex flex-col w-1/2">
+      <div className="flex flex-col w-full">
         <h2 className="w-full p-2 font-bold border-b-2 border-b-slate-300 bg-slate-200">Produtos cadastrados:</h2>
         <ScrollArea className="h-full w-full rounded-md border">
           <div className="p-4">
             {isProdLoading ? <TailSpin stroke="#121212" /> :
               produtos.map((item) => (
                 <div key={item.id} className={`flex flex-row justify-between items-center text-sm py-2 border-b-[1px] border-dotted border-b-slate-200`}>
-                  <div>
-                    {item.nome}
-                  </div>
+                  <div className="w-40">{item.categoria}</div>
+                  <div className="flex-1">{item.nome}</div>
                   <div className="flex gap-2">
                     <button onClick={() => handleUpdate(item)}><IconFaEdit size={18} /></button>
                     <button onClick={() => handleDelete(item.id)}><IconFaTrashAlt size={18} /></button>
