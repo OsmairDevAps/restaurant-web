@@ -78,7 +78,7 @@ export default function RegProduct() {
       })
       alert('Produto atualizado com sucesso')
       setIsEditting(false)
-      reset(defaultValues)
+      handleReset()
       loadProdutos()
     } else {
       const response = await produtoDatabase.criar({

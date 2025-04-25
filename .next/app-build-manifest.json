@@ -11,11 +11,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
-    ],
     "/atender/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,15 +21,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/mesa/route.js"
     ],
-    "/api/categoria/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/categoria/route.js"
-    ],
     "/atender/[idmesa]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/atender/[idmesa]/page.js"
+    ],
+    "/api/categoria/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/categoria/route.js"
     ],
     "/configuracao/page": [
       "static/chunks/webpack.js",
@@ -46,10 +41,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/produto/route.js"
     ],
-    "/api/reserva/route": [
+    "/caixa/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/reserva/route.js"
+      "static/chunks/app/caixa/page.js"
+    ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
     ]
   }
 }

@@ -1,6 +1,6 @@
 export const ModalStyles = {
   content: {
-    top: '40%',
+    top: '50%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',

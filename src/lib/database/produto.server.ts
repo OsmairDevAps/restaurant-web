@@ -25,7 +25,7 @@ export async function atualizaProduto(data: IProduto) {
     .from('produtos')
     .update({
       idcategoria: data.idcategoria,
-      name: data.nome,
+      nome: data.nome,
       valorcusto: data.valorcusto,
       valorfinal: data.valorfinal
     })

@@ -1,17 +1,20 @@
 'use client'
 
 import { useEffect, useState } from "react"
+import Modal from 'react-modal'
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useCategoria } from "@/hooks/useCategoria"
 import { useItemPedido } from "@/hooks/useItemPedido"
 import { FiTrash2 } from "react-icons/fi"
-import { ICategoria, IMesa, IItemPedido, IProduto, IPedido } from "@/utils/interface"
+import { ICategoria, IMesa, IItemPedido, IProduto } from "@/utils/interface"
 import Header from "@/components/header"
 import Menu from "@/components/menu"
 import { useProduto } from "@/hooks/useProduto"
 import { useMesa } from "@/hooks/useMesa"
 import { usePedido } from "@/hooks/usePedido"
+import { ModalStyles } from "@/styles/modal"
+import Receber from "./receber"
 
 type TItensPedido = {
   categoria: string;
@@ -32,13 +35,12 @@ export default function DetalheMesa() {
   const pedidoDatabase = usePedido()
   const itemPedidoDatabase = useItemPedido()
   const mesaDatabase = useMesa()
+  const [isRecebimentoOpen, setIsRecebimentoOpen] = useState(false)
   const [categorias, setCategorias] = useState<ICategoria[]>([])
   const [produtos, setProdutos] = useState<IProduto[]>([])
   const [mesa, setMesa] = useState<IMesa>()
-  const [pedido, setPedido] = useState<IPedido>()
   const [totalPedido, setTotalPedido] = useState(0)
   const [itemsPedido, setItemsPedido] = useState<TItensPedido[]>([])
-  const [nomeCategoria, setNomeCategoria] = useState('')
   
   async function LoadCategories() {
     const response = await categoriaDatabase.listar()
@@ -57,16 +59,11 @@ export default function DetalheMesa() {
   async function LoadPedido(idmesa: number) { 
     const responsePedido = await pedidoDatabase.verPedidosPorMesa(idmesa)
     if (responsePedido) {
-      setPedido(responsePedido)
       LoadItemsPedido(responsePedido.id)
     }
   }
 
   async function LoadProdutos(idCategoria: number) {
-    const cat = await categoriaDatabase.verCategoria(idCategoria)
-    if (cat) {
-      setNomeCategoria(cat)
-    }
     const response = await produtoDatabase.localizaPorCategoria(idCategoria)
     if(response) {
       setProdutos(response)
@@ -196,13 +193,12 @@ export default function DetalheMesa() {
               </div>
               <div className="flex flex-row justify-between items-center w-full mb-4">
                 <Button className="w-60" onClick={handleBack}>Voltar</Button>
-                <Button className="w-60">Finalizar Atendimento</Button>
+                <Button className="w-60" onClick={() => setIsRecebimentoOpen(true)}>Realizar Recebimento</Button>
               </div>
             </div>
 
             <div className="w-1/2 h-full p-4 flex flex-col justify-start items-start bg-slate-100">
               <h2 className="my-2 font-bold text-lg">Pedido da mesa</h2>
-              
               {
                 itemsPedido.map(item => (
                   <div key={item.id} className="w-full border-[1px] border-slate-200 bg-slate-200 p-2 my-1">
@@ -238,7 +234,6 @@ export default function DetalheMesa() {
                   </div>
                 ))
               }
-
               <div className="flex flex-row justify-between items-center bg-slate-300 w-full p-2 mt-1">
                 <span className="font-bold text-lg">TOTAL</span>
                 <span className="font-bold text-lg">
@@ -249,6 +244,14 @@ export default function DetalheMesa() {
           </div>
         </div>
       </div>
+
+      <Modal 
+        style={ModalStyles} 
+        ariaHideApp={false} 
+        isOpen={isRecebimentoOpen}
+      >
+        <Receber setIsClose={setIsRecebimentoOpen} />
+      </Modal>
     </div>
   )
 }
