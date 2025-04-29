@@ -11,45 +11,60 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/atender/page": [
+    "/configuracao/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/atender/page.js"
-    ],
-    "/api/mesa/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/mesa/route.js"
-    ],
-    "/atender/[idmesa]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/atender/[idmesa]/page.js"
+      "static/chunks/app/configuracao/page.js"
     ],
     "/api/categoria/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/categoria/route.js"
     ],
-    "/configuracao/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/configuracao/page.js"
-    ],
     "/api/produto/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/produto/route.js"
+    ],
+    "/api/mesa/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/mesa/route.js"
+    ],
+    "/api/reserva/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/reserva/route.js"
+    ],
+    "/relatorio/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/relatorio/page.js"
+    ],
+    "/atender/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/atender/page.js"
+    ],
+    "/atender/[idmesa]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/atender/[idmesa]/page.js"
+    ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
     ],
     "/caixa/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/caixa/page.js"
     ],
-    "/dashboard/page": [
+    "/reforco/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
+      "static/chunks/app/reforco/page.js"
     ]
   }
 }

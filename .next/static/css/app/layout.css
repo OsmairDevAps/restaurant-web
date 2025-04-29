@@ -61,7 +61,6 @@
       "Courier New", monospace;
     --color-red-100: oklch(0.936 0.032 17.717);
     --color-red-200: oklch(0.885 0.062 18.334);
-    --color-red-400: oklch(0.704 0.191 22.216);
     --color-red-500: oklch(0.637 0.237 25.331);
     --color-red-700: oklch(0.505 0.213 27.518);
     --color-red-800: oklch(0.444 0.177 26.899);
@@ -103,7 +102,6 @@
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    --font-weight-black: 900;
     --radius-xs: 0.125rem;
     --aspect-video: 16 / 9;
     --default-transition-duration: 150ms;
@@ -430,9 +428,6 @@
   .h-32 {
     height: calc(var(--spacing) * 32);
   }
-  .h-96 {
-    height: calc(var(--spacing) * 96);
-  }
   .h-\[500px\] {
     height: 500px;
   }
@@ -617,9 +612,6 @@
   }
   .justify-center {
     justify-content: center;
-  }
-  .justify-evenly {
-    justify-content: space-evenly;
   }
   .justify-start {
     justify-content: flex-start;
@@ -978,10 +970,6 @@
     --tw-leading: 1;
     line-height: 1;
   }
-  .font-black {
-    --tw-font-weight: var(--font-weight-black);
-    font-weight: var(--font-weight-black);
-  }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);
     font-weight: var(--font-weight-bold);
@@ -1272,13 +1260,6 @@
       }
     }
   }
-  .hover\:bg-red-400 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-red-400);
-      }
-    }
-  }
   .hover\:bg-secondary\/80 {
     &:hover {
       @media (hover: hover) {
@@ -1311,13 +1292,6 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-slate-500);
-      }
-    }
-  }
-  .hover\:text-white {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-white);
       }
     }
   }
