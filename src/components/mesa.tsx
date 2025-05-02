@@ -16,7 +16,7 @@ export default function Mesa({ mesa }: TMesa) {
   
   return (
     <button onClick={() => handleClick(mesa.id)} className="cursor-pointer">
-      <div className={`flex flex-col justify-center items-center w-32 h-32 bg-${mesa.cor}-200 border-[1px] border-slate-300`}>
+      <div className={`flex flex-col justify-center items-center w-48 h-48 bg-${mesa.cor}-200 border-[1px] border-slate-300`}>
         <span className="text-slate-950 font-bold text-2xl">{mesa.num}</span>
       </div>
     </button>

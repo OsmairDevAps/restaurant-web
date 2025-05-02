@@ -41,12 +41,6 @@
       "static/chunks/_app-pages-browser_src_lib_database_produto_server_ts.js"
     ]
   },
-  "hooks\\useReserva.ts -> @/lib/database/reserva.server": {
-    "id": "hooks\\useReserva.ts -> @/lib/database/reserva.server",
-    "files": [
-      "static/chunks/_app-pages-browser_src_lib_database_reserva_server_ts.js"
-    ]
-  },
   "hooks\\useUsuario.ts -> @/lib/database/usuario.server": {
     "id": "hooks\\useUsuario.ts -> @/lib/database/usuario.server",
     "files": [

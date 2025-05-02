@@ -27,6 +27,7 @@ type TItensPedido = {
 }
 
 export default function DetalheMesa() {
+  const [numMesa, setNumMesa] = useState('')
   const params = useParams()
   const router = useRouter()
   const { idmesa } = params
@@ -143,6 +144,16 @@ export default function DetalheMesa() {
     LoadItemsPedido(item.idpedido)
   }
 
+  function zeros(num: number) {
+    let valor=''
+    if(num.toString().length < 2) {
+      valor = '0' + num.toString()
+    } else {
+      valor = num.toString()
+    }
+    return valor
+  }
+
   function handleBack() {
     router.push('/atender')
   }
@@ -159,13 +170,20 @@ export default function DetalheMesa() {
       <div className="flex flex-1 overflow-hidden">
         <Menu />
         
-        <div className="w-full h-full">
-          <h2 className="px-4 font-bold text-xl">MESA {mesa?.num}</h2>
-          
-          <div className="w-full flex flex-row gap-4 h-full justify-start items-start p-4">
-            <div className="flex flex-col justify-between items-start w-1/2 h-full">
-              <div className="flex flex-row justify-between w-full h-full mb-2 bg-slate-100">
-                <div className="flex flex-col w-1/3 p-4 gap-2">
+        <div className="flex flex-row w-full h-full">
+          <div className="flex flex-col justify-start items-start border-[1px] border-gray-300 w-2/5">
+            <div className="border-b-[1px] border-gray-300 w-full p-4">
+              <h2 className="font-bold text-xl">MESA {zeros(Number(mesa?.num))}</h2>
+              <div className="flex flex-row gap-2">
+                <span className="font-semibold text-xl text-gray-500">#1255</span>
+                <span className="font-semibold text-xl">Cliente:</span>
+                <input type="text" name="cliente" />
+              </div>
+            </div>
+
+            <div className="flex flex-col h-full w-full justify-between items-start p-4">
+              <div className="flex flex-row gap-2">
+                <div className="flex flex-col gap-2">
                   <h2 className="font-semibold">CATEGORIA:</h2>
                   {categorias.map(item =>  
                     <button key={item.id} 
@@ -176,8 +194,8 @@ export default function DetalheMesa() {
                     </button>)
                   }
                 </div>
-                {/* Produtos da categoria selecionada */}
-                <div className="flex-wrap w-2/3 p-4 gap-2">
+
+                <div className="flex-1 flex-wrap gap-2">
                   <h2 className="font-semibold">PRODUTOS:</h2>
                   {
                     produtos.map(item => 
@@ -191,34 +209,39 @@ export default function DetalheMesa() {
                   }
                 </div>
               </div>
-              <div className="flex flex-row justify-between items-center w-full mb-4">
-                <Button className="w-60" onClick={handleBack}>Voltar</Button>
-                <Button className="w-60" onClick={() => setIsRecebimentoOpen(true)}>Realizar Recebimento</Button>
+
+              <div className="flex flex-row justify-between items-center w-full">
+                <Button className="w-40" onClick={handleBack}>Cancelar</Button>
+                <Button className="w-40" onClick={() => setIsRecebimentoOpen(true)}>Enviar Pedido</Button>
               </div>
             </div>
+          </div>
 
-            <div className="w-1/2 h-full p-4 flex flex-col justify-start items-start bg-slate-100">
-              <h2 className="my-2 font-bold text-lg">Pedido da mesa</h2>
-              {
+          <div className="w-3/5 p-4">
+            <h2 className="my-2 font-bold text-lg">Pedido da mesa</h2>
+            <div className="flex flex-col h-full w-full justify-between items-start pb-8">
+              <div className="w-full">
+                {
                 itemsPedido.map(item => (
-                  <div key={item.id} className="w-full border-[1px] border-slate-200 bg-slate-200 p-2 my-1">
+                  <div key={item.id} className="w-full my-1 border-b-[1px] border-gray-300">
                     <div className="flex flex-col gap-2">
                       <div className="flex flex-row justify-between items-center w-full">
-                        <span className="flex-1">{item.categoria} - {item.produto}</span>
-                        
+                        <span className="w-48">{item.categoria}</span>
+                        <span className="flex-1">{item.produto}</span>
+
                         <div className="flex flex-row justify-between items-center gap-4 w-40">
                           <button
                             onClick={() => AtualizaItemPedido('-', item)}
-                            className="p-2 bg-red-100 flex justify-center items-center w-10 cursor-pointer"
+                            className="p-2 bg-red-500 flex justify-center items-center w-10 h-8 cursor-pointer"
                           >
-                            <span className="font-bold text-lg">-</span>
+                            <span className="font-bold text-xl text-white">-</span>
                           </button>
                           <span>{item.quant}</span>
                           <button
                             onClick={() => AtualizaItemPedido('+', item)}
-                            className="p-2 bg-blue-100 flex justify-center items-center w-10 cursor-pointer"
+                            className="p-2 bg-green-500 flex justify-center items-center w-10 h-8 cursor-pointer"
                           >
-                            <span className="font-bold text-lg">+</span>
+                            <span className="font-bold text-xl text-white">+</span>
                           </button>
                           <button
                             onClick={() => ExcluiItemPedido(item)}
@@ -233,8 +256,9 @@ export default function DetalheMesa() {
                     </div>
                   </div>
                 ))
-              }
-              <div className="flex flex-row justify-between items-center bg-slate-300 w-full p-2 mt-1">
+                }
+              </div>
+              <div className="flex flex-row justify-between items-center w-full p-2 border-t-[1px] border-gray-400">
                 <span className="font-bold text-lg">TOTAL</span>
                 <span className="font-bold text-lg">
                   {Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(totalPedido)}
@@ -242,6 +266,7 @@ export default function DetalheMesa() {
               </div>
             </div>
           </div>
+          
         </div>
       </div>
 

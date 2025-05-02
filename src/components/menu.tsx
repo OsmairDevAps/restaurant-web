@@ -49,7 +49,7 @@ export default function Menu() {
             <IconUserEdit className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
             <span className="text-md text-slate-950 hover:cursor-pointer">Atender</span>
           </Link>
-          <Link href="/relatorio" className="flex flex-col items-center justify-center w-40 text-slate-600 my-6">
+          <Link href="/pedido" className="flex flex-col items-center justify-center w-40 text-slate-600 my-6">
             <IconHandHoldingUsd className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
             <span className="text-md text-slate-950 hover:cursor-pointer">Pedidos</span>
           </Link>
