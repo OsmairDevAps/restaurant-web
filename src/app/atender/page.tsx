@@ -12,14 +12,14 @@ export default function Atender() {
 
   async function loadMesas() {
     const response = await mesaDatabase.listar()
-    if(response) {
+    if (response) {
       setMesas(response)
     }
   }
 
   useEffect(() => {
     loadMesas()
-  },[])
+  }, [])
 
   return (
     <div className="h-screen w-screen flex flex-col">
@@ -53,9 +53,9 @@ export default function Atender() {
           <div className="flex flex-row flex-wrap justify-start items-start w-full gap-8">
             {
               mesas.map(mesa => (
-                <Mesa 
+                <Mesa
                   key={mesa.id}
-                  mesa={mesa} 
+                  mesa={mesa}
                 />
               ))
             }

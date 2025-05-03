@@ -11,25 +11,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
-    ],
-    "/caixa/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/caixa/page.js"
-    ],
-    "/reforco/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/reforco/page.js"
-    ],
     "/atender/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/atender/page.js"
+    ],
+    "/pedido/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/pedido/page.js"
     ],
     "/api/mesa/route": [
       "static/chunks/webpack.js",
@@ -46,15 +36,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/categoria/route.js"
     ],
-    "/relatorio/page": [
+    "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/relatorio/page.js"
-    ],
-    "/pedido/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/pedido/page.js"
+      "static/chunks/app/dashboard/page.js"
     ]
   }
 }
