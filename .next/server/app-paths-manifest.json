@@ -1,7 +1,6 @@
 {
-  "/atender/page": "app/atender/page.js",
-  "/atender/[idmesa]/page": "app/atender/[idmesa]/page.js",
-  "/pedido/page": "app/pedido/page.js",
-  "/relatorio/page": "app/relatorio/page.js",
+  "/page": "app/page.js",
+  "/reforco/page": "app/reforco/page.js",
+  "/retirada/page": "app/retirada/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }
