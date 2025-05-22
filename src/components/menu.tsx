@@ -45,6 +45,10 @@ export default function Menu() {
             <IconMoneyCheckAlt className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
             <span className="text-md text-slate-950 hover:cursor-pointer">Reforçar Caixa</span>
           </Link>
+          <Link href='/retirada' className="flex flex-col items-center justify-center w-40 text-slate-600 my-6">
+            <IconMoneyCheckAlt className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
+            <span className="text-md text-slate-950 hover:cursor-pointer">Retirada de Caixa</span>
+          </Link>
           <Link href="/atender" className="flex flex-col items-center justify-center w-40 text-slate-600 my-6">
             <IconUserEdit className="w-10 h-10 text-slate-950 hover:text-slate-500 hover:cursor-pointer" />
             <span className="text-md text-slate-950 hover:cursor-pointer">Atender</span>

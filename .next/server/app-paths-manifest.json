@@ -2,7 +2,6 @@
   "/api/mesa/route": "app/api/mesa/route.js",
   "/api/categoria/route": "app/api/categoria/route.js",
   "/page": "app/page.js",
-  "/pedido/page": "app/pedido/page.js",
   "/atender/page": "app/atender/page.js",
   "/atender/[idmesa]/page": "app/atender/[idmesa]/page.js",
   "/dashboard/page": "app/dashboard/page.js"
