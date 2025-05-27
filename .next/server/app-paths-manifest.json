@@ -4,5 +4,6 @@
   "/page": "app/page.js",
   "/atender/page": "app/atender/page.js",
   "/atender/[idmesa]/page": "app/atender/[idmesa]/page.js",
+  "/retirada/page": "app/retirada/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }

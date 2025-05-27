@@ -11,11 +11,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/pedido/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/pedido/page.js"
-    ],
     "/atender/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -35,6 +30,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/categoria/route.js"
+    ],
+    "/retirada/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/retirada/page.js"
     ],
     "/dashboard/page": [
       "static/chunks/webpack.js",
